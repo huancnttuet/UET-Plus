@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/menu_home"
+            app:actionViewClass="android.widget.TextView"
+            android:icon="@drawable/ic_home"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/menu_pengurus"
+            app:actionViewClass="android.widget.TextView"
+            android:icon="@drawable/ic_pengurus"
+            android:title="Pengurus" />
+
+    </group>
+
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/menu_saran_dan_kritikan"
+            app:actionViewClass="android.widget.TextView"
+            android:icon="@drawable/ic_saran"
+            android:title="Saran Dan Kritikan" />
+        <item
+            android:id="@+id/menu_about"
+            app:actionViewClass="android.widget.TextView"
+            android:icon="@drawable/ic_about"
+            android:title="About" />
+        <item
+            android:id="@+id/menu_logout"
+            app:actionViewClass="android.widget.TextView"
+            android:icon="@drawable/ic_logout"
+            android:title="Logout" />
+    </group>
+</menu>
