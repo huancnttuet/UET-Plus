@@ -2,4 +2,91 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/bgapp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="106dp"
+        android:orientation="horizontal">
+
+        <TextView
+
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="Time"
+        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/monday"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="Monday"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tuesday"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="Tuesday"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/wednesday"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="Wednesday"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/thursday"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="Thursday"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/friday"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="Friday"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/saturday"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="Saturday"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/sunday"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="Sunday"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/col0"
+    android:layout_width="50dp"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_marginTop="50dp"
+    >
+		<TextView
+			android:id="@+id/s00"
+			android:layout_width="50dp"
+			android:layout_height="50dp"
+			android:text="1"
+			android:textSize="20sp" />
+
+	</LinearLayout>
+    <LinearLayout
+		android:id="@+id/subject"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+		android:layout_marginLeft="100px"
+        >
+    </LinearLayout>
+
+	
 </RelativeLayout>

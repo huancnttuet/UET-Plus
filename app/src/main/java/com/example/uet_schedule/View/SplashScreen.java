@@ -43,26 +43,28 @@ public class SplashScreen extends AppCompatActivity {
         groupAnimation.addAnimation(animationRotate);
         groupAnimation.addAnimation(animationScale);
         View_LoadingRotate.startAnimation(groupAnimation);
-
-
         //get api -- all subject
 
-        I_SubjectGetDataService service = SubjectClientInstance.getRetrofitInstance().create(I_SubjectGetDataService.class);
-        Call<List<Subject>> call = service.getSubject();
-        call.enqueue(new Callback<List<Subject>>() {
-            @Override
-            public void onResponse(Call<List<Subject>> call, Response<List<Subject>> response) {
-                Log.d("Notify", "Success");
-                List_All_Subject = response.body();
-                startActivity(new Intent(SplashScreen.this,MainActivity.class));
-                finish();
-            }
 
-            @Override
-            public void onFailure(Call<List<Subject>> call, Throwable t) {
-                Log.d("Notify", "Failed");
-            }
-        });
+        startActivity(new Intent(SplashScreen.this,MainActivity.class));
+        finish();
+//
+//        I_SubjectGetDataService service = SubjectClientInstance.getRetrofitInstance().create(I_SubjectGetDataService.class);
+//        Call<List<Subject>> call = service.getSubject();
+//        call.enqueue(new Callback<List<Subject>>() {
+//            @Override
+//            public void onResponse(Call<List<Subject>> call, Response<List<Subject>> response) {
+//                Log.d("Notify", "Success");
+//                List_All_Subject = response.body();
+//                startActivity(new Intent(SplashScreen.this,MainActivity.class));
+//                finish();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Subject>> call, Throwable t) {
+//                Log.d("Notify", "Failed");
+//            }
+//        });
 
 //        (new Handler()).postDelayed(new Runnable() {
 //            @Override

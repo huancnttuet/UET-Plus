@@ -21,7 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.MainActivity"></activity>
+        <activity android:name=".View.MainActivity"  android:theme="@style/generalnotitle"></activity>
+        <activity android:name=".View.ScheduleScreen"  android:theme="@style/generalnotitle"></activity>
 
     </application>
 </manifest>
