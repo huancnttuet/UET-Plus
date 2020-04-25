@@ -3,96 +3,82 @@ package com.example.uet_schedule.Model;
 import com.google.gson.annotations.SerializedName;
 
 public class Subject {
-    @SerializedName ( "stt" )
-    private String stt;
+//    @SerializedName ( "stt" )
+//    private String stt;
 
-    @SerializedName ( "code" )
-    private String code;
+    @SerializedName ( "class_code" )
+    private String class_code;
 
-    @SerializedName("name")
-    private String name;
+    @SerializedName("class_name")
+    private String class_name;
 
-    @SerializedName("credits")
-    private String credits;
+    @SerializedName("credit")
+    private String credit;
 
-    @SerializedName("codeFull")
-    private String codeFull;
+//    @SerializedName("codeFull")
+//    private String codeFull;
 
     @SerializedName("teacher")
     private String teacher;
 
-    @SerializedName("numberStudent")
-    private String numberStudent;
+    @SerializedName("student_total")
+    private String student_total;
 
-    @SerializedName("sessionOfDay")
-    private String sessionOfDay;
+    @SerializedName("session")
+    private String session;
 
-    @SerializedName("daysOfTheWeek")
-    private String daysOfTheWeek;
+    @SerializedName("day")
+    private String day;
 
     @SerializedName("lession")
     private String lession;
 
-    @SerializedName("classRoom")
-    private String classRoom;
+    @SerializedName("classroom")
+    private String classroom;
 
-    @SerializedName("group")
-    private String group;
+    @SerializedName("note")
+    private String note;
 
-    public Subject(String stt, String code, String name, String credits, String codeFull, String teacher, String numberStudent, String sessionOfDay, String daysOfTheWeek, String lession, String classRoom, String group) {
-        this.stt = stt;
-        this.code = code;
-        this.name = name;
-        this.credits = credits;
-        this.codeFull = codeFull;
+    public Subject(String class_code, String class_name, String credit, String teacher, String student_total, String session, String day, String lession, String classroom, String note) {
+
+        this.class_code = class_code;
+        this.class_name = class_name;
+        this.credit = credit;
         this.teacher = teacher;
-        this.numberStudent = numberStudent;
-        this.sessionOfDay = sessionOfDay;
-        this.daysOfTheWeek = daysOfTheWeek;
+        this.student_total = student_total;
+        this.session = session;
+        this.day = day;
         this.lession = lession;
-        this.classRoom = classRoom;
-        this.group = group;
+        this.classroom = classroom;
+        this.note = note;
     }
 
-    public String getStt() {
-        return stt;
+
+
+    public String getClasCode() {
+        return class_code;
     }
 
-    public void setStt(String stt) {
-        this.stt = stt;
+    public void setClassCode(String code) {
+        this.class_code = code;
     }
 
-    public String getCode() {
-        return code;
+    public String getClassName() {
+        return class_name;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setClassName(String name) {
+        this.class_name = name;
     }
 
-    public String getName() {
-        return name;
+    public String getCredit() {
+        return credit;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCredit(String credit) {
+        this.credit= credit;
     }
 
-    public String getCredits() {
-        return credits;
-    }
-
-    public void setCredits(String credits) {
-        this.credits = credits;
-    }
-
-    public String getCodeFull() {
-        return codeFull;
-    }
-
-    public void setCodeFull(String codeFull) {
-        this.codeFull = codeFull;
-    }
 
     public String getTeacher() {
         return teacher;
@@ -102,28 +88,28 @@ public class Subject {
         this.teacher = teacher;
     }
 
-    public String getNumberStudent() {
-        return numberStudent;
+    public String getStudentTotal() {
+        return student_total;
     }
 
-    public void setNumberStudent(String numberStudent) {
-        this.numberStudent = numberStudent;
+    public void setStudentTotal(String student_total) {
+        this.student_total = student_total;
     }
 
-    public String getSessionOfDay() {
-        return sessionOfDay;
+    public String getSession() {
+        return session;
     }
 
-    public void setSessionOfDay(String sessionOfDay) {
-        this.sessionOfDay = sessionOfDay;
+    public void setSession(String session) {
+        this.session = session;
     }
 
-    public String getDaysOfTheWeek() {
-        return daysOfTheWeek;
+    public String getDay() {
+        return day;
     }
 
-    public void setDaysOfTheWeek(String daysOfTheWeek) {
-        this.daysOfTheWeek = daysOfTheWeek;
+    public void setDay(String day) {
+        this.day = day;
     }
 
     public String getLession() {
@@ -134,19 +120,19 @@ public class Subject {
         this.lession = lession;
     }
 
-    public String getClassRoom() {
-        return classRoom;
+    public String getClassroom() {
+        return classroom;
     }
 
-    public void setClassRoom(String classRoom) {
-        this.classRoom = classRoom;
+    public void setClassroom(String classroom) {
+        this.classroom = classroom;
     }
 
-    public String getGroup() {
-        return group;
+    public String getNote() {
+        return note;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setNote(String group) {
+        this.note = group;
     }
 }

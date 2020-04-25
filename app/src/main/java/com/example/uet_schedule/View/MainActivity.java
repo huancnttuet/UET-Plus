@@ -1,18 +1,25 @@
 package com.example.uet_schedule.View;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridLayout;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,51 +41,10 @@ import static com.example.uet_schedule.View.SplashScreen.List_All_Subject;
 public class MainActivity extends AppCompatActivity {
 
     ImageView BackgroundApp, BGIcon ;
-    LinearLayout textsplash, texthome, menus;
+    LinearLayout textsplash, texthome;
+    GridLayout menus;
     Animation frombottom, bganim, clovernim;
     public static List<Student> List_Student;
-
-//    public void getStudentfromMSSV(MSSV mssv, View view){
-//        //post api -- get student from mssv
-//
-//        I_SubjectGetDataService service = SubjectClientInstance.getRetrofitInstance().create(I_SubjectGetDataService.class);
-//
-//        Call<List<Student>> call = service.getStudent(mssv);
-//        call.enqueue(new Callback<List<Student>>() {
-//            @Override
-//            public void onResponse(Call<List<Student>> call, Response<List<Student>> response) {
-//                Log.d("Notify", "POST Success");
-//                List_Student = response.body();
-//                for(Student s : List_Student) {
-//                    Log.d("Student", s.getName());
-//                }
-//                display(view);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Student>> call, Throwable t) {
-//                Log.d("Notify POST", "POST Failed");
-//            }
-//        });
-//    }
-//
-//    public void display(View view){
-//        TableLayout c = (TableLayout) view.getRootView().findViewById(R.id.table_all_subject);
-//
-//        for(int i = 0; i < List_Student.size(); i++){
-//            TableRow tr =  new TableRow(view.getContext());
-//            TextView c1 = new TextView(view.getContext());
-//            c1.setText(List_Student.get(i).getStt());
-//            TextView c2 = new TextView(view.getContext());
-//            c2.setText(List_Student.get(i).getName());
-//            TextView c3 = new TextView(view.getContext());
-//            c3.setText(List_Student.get(i).getSubject());
-//            tr.addView(c1);
-//            tr.addView(c2);
-//            tr.addView(c3);
-//            c.addView(tr);
-//        }
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,71 +52,120 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide(); //<< this
         setContentView(R.layout.activity_main);
 
-        BackgroundApp = (ImageView) findViewById(R.id.bg);
-        BGIcon = (ImageView) findViewById(R.id.clover);
-        textsplash = (LinearLayout) findViewById(R.id.textsplash);
-        texthome = (LinearLayout) findViewById(R.id.texthome) ;
-        menus = (LinearLayout) findViewById(R.id.menus);
+//        BackgroundApp = (ImageView) findViewById(R.id.bg);
+//        BGIcon = (ImageView) findViewById(R.id.clover);
+//        textsplash = (LinearLayout) findViewById(R.id.textsplash);
+//        texthome = (LinearLayout) findViewById(R.id.texthome) ;
+        menus =  findViewById(R.id.menus);
 
         frombottom = AnimationUtils.loadAnimation(this,R.anim.frombottom);
 
 
 
-        BackgroundApp.animate().translationY(-1000).setDuration(1000).setStartDelay(2500);
-        BGIcon.animate().alpha(0).setDuration(1000).setStartDelay(500);
+//        BackgroundApp.animate().translationY(-1000).setDuration(1000).setStartDelay(2500);
+//        BGIcon.animate().alpha(0).setDuration(1000).setStartDelay(500);
 
-        textsplash.animate().translationY(140).alpha(0).setStartDelay(800).setStartDelay(300);
-        texthome.startAnimation(frombottom);
+//        textsplash.animate().translationY(140).alpha(0).setStartDelay(800).setStartDelay(300);
+//        texthome.startAnimation(frombottom);
         menus.startAnimation(frombottom);
 
         LinearLayout btn1 = findViewById(R.id.btn1);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,ScheduleScreen.class));
+                Dialog dialog = new Dialog(v.getContext());
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.input_dialog);
+                TextView title = dialog.findViewById(R.id.title);
+                title.setText("Xem thời khóa biểu");
+                dialog.show();
+                Button exit_btn = dialog.findViewById(R.id.cancel_btn);
+                exit_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                Button yes_btn = dialog.findViewById(R.id.yes_btn);
+                yes_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this,ScheduleScreen.class);
+                        EditText input = dialog.findViewById(R.id.input);
+                        String mssv = input.getText().toString();
+                        if (mssv.matches("")) {
+                            Toast.makeText(v.getContext(), "Bạn chưa nhập gì cả :'D", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        intent.putExtra("mssv",mssv);
+                        startActivity(intent);
+                    }
+                });
+
             }
         });
 
-//        Button btn =findViewById(R.id.btn_get_all_subject);
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d("Click","Click");
-//                for(int i = 0; i<List_All_Subject.size();i++){
-//                    Log.d("CodeFull Subject: ", List_All_Subject.get(i) + " " + i);
-//                }
-//                TableLayout c = (TableLayout) view.getRootView().findViewById(R.id.table_all_subject);
-//
-//                for(int i = 0; i < List_All_Subject.size(); i++){
-//                    TableRow tr =  new TableRow(view.getContext());
-//                    TextView c1 = new TextView(view.getContext());
-//                    c1.setText(List_All_Subject.get(i).getStt());
-//                    TextView c2 = new TextView(view.getContext());
-//                    c2.setText(List_All_Subject.get(i).getName());
-//                    TextView c3 = new TextView(view.getContext());
-//                    c3.setText(List_All_Subject.get(i).getClassRoom());
-//                    tr.addView(c1);
-//                    tr.addView(c2);
-//                    tr.addView(c3);
-//                    c.addView(tr);
-//                }
-//
-//            }
-//        });
-//
-//        Button find_btn = findViewById(R.id.find_btn);
-//        EditText mssv_input = findViewById(R.id.mssv_input);
-//
-//        find_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                MSSV mssv = new MSSV(mssv_input.getText().toString());
-//                getStudentfromMSSV(mssv,view);
-//
-//            }
-//        });
+        LinearLayout btn2 = findViewById(R.id.btn2);
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialog = new Dialog(v.getContext());
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.input_dialog);
+                dialog.show();
+                Button exit_btn = dialog.findViewById(R.id.cancel_btn);
+                exit_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                Button yes_btn = dialog.findViewById(R.id.yes_btn);
+                yes_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this,ExamTimeSreen.class);
+                        EditText input = dialog.findViewById(R.id.input);
+                        String mssv = input.getText().toString();
+                        if (mssv.matches("")) {
+                            Toast.makeText(v.getContext(), "Bạn chưa nhập gì cả :'D", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        intent.putExtra("mssv",mssv);
+                        startActivity(intent);
+                    }
+                });
+
+            }
+        });
+
+        LinearLayout btn3 = findViewById(R.id.btn3);
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,ScoreScreen.class));
+            }
+        });
 
 
+
+    }
+
+    public void openDialog() {
+        Dialog dialog = new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog);
+        dialog.show();
+        Button exit_btn = dialog.findViewById(R.id.exit_btn);
+        exit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 
 }

@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SubjectClientInstance {
 
     private static Retrofit retrofit;
-    private static final String BASE_URL = "https://uet-subject.herokuapp.com";
+    private static final String BASE_URL = "https://flaskapp-postgre.herokuapp.com/";
 
     public static Retrofit getRetrofitInstance(){
 

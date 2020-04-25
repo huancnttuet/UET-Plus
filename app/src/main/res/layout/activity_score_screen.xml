@@ -1,6 +1,294 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<!--    <ImageView-->
+<!--        android:id="@+id/bg"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="966dp"-->
+<!--        android:scaleType="fitXY"-->
+<!--        android:src="@drawable/bgapp" />-->
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="top"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:layout_marginTop="20dp"
+        >
+
+        <EditText
+            android:layout_marginTop="5dp"
+            android:id="@+id/find_input"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:textSize="15dp"
+            android:layout_weight="6"
+            android:background="#FFF"
+            android:hint="Nhập tên môn hoặc mã môn" />
+
+        <Button
+            android:id="@+id/find_btn"
+            android:layout_marginTop="5dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Tìm kiếm"
+            android:textColor="#FFF"
+            android:textSize="10dp" />
+
+        <Button
+            android:id="@+id/find_all_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Tìm kiếm tất cả"
+            android:textColor="#FFF"
+            android:textSize="9dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/score_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:layout_marginTop="120dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/term_name"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:text="Xem điểm thi"
+            android:textSize="20dp" />
+
+<!--        <ScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:weightSum="10"-->
+<!--                    >-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_weight="9"-->
+<!--                        android:id="@+id/subject_name"-->
+<!--                        android:orientation="vertical"-->
+<!--                        >-->
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent">-->
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:text="Tên môn học"-->
+<!--                                android:gravity="center"-->
+<!--                                >-->
+<!--                            </TextView>-->
+<!--                        </LinearLayout>-->
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent">-->
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:text="Tên môn học"-->
+<!--                                android:gravity="center"-->
+<!--                                >-->
+<!--                            </TextView>-->
+<!--                        </LinearLayout>-->
+<!--                    </LinearLayout>-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="100dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:id="@+id/subject_code"-->
+<!--                        >-->
+<!--                        <TextView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:text="Mã môn học"-->
+<!--                            android:gravity="center"-->
+<!--                            >-->
+<!--                        </TextView>-->
+<!--                    </LinearLayout>-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="100dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:id="@+id/updated_at"-->
+<!--                        >-->
+<!--                        <TextView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:text="Ngày đăng"-->
+<!--                            android:gravity="center"-->
+<!--                            >-->
+<!--                        </TextView>-->
+<!--                    </LinearLayout>-->
+<!--                </LinearLayout>-->
+<!--        </ScrollView>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            >
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/css_layout"
+                    android:gravity="center"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tên môn học"
+                        android:textSize="12dp" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/css_layout"
+                    android:gravity="center"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mã môn học"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/css_layout"
+                    android:gravity="center"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ngày đăng"
+                        android:textSize="11dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="500dp">
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    >
+                    <LinearLayout
+                        android:layout_width="150dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        >
+                        <LinearLayout
+                            android:id="@+id/subject_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="top"
+                            android:orientation="vertical"
+                            android:background="@drawable/css_layout2"
+                            >
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        >
+
+                        <LinearLayout
+                            android:id="@+id/subject_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="top"
+                            android:orientation="vertical"
+                            android:background="@drawable/css_layout2"
+                            >
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        >
+                        <LinearLayout
+                            android:id="@+id/updated_at"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="top"
+                            android:orientation="vertical"
+                            android:background="@drawable/css_layout2"
+                            >
+                        </LinearLayout>
+                        <LinearLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="top"
+                            android:orientation="vertical"
+                            android:background="@drawable/css_layout2"
+                            >
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" android:text="đá" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+        </ScrollView>
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/loadingPanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" >
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+    </RelativeLayout>
+
+</RelativeLayout>

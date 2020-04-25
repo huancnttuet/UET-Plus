@@ -20,7 +20,7 @@
         android:layout_above="@+id/icon"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="120dp"
-        android:text="Schedule of UET"
+        android:text="UET Todo"
         android:textColor="@color/black"
         android:textSize="30sp" />
 

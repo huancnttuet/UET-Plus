@@ -1,208 +1,384 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     >
-
-    <ImageView
-        android:id="@+id/bg"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@drawable/bgapp" />
-
-    <ImageView
-        android:id="@+id/clover"
-        android:layout_width="238dp"
-        android:layout_height="243dp"
-        android:layout_marginRight="228dp"
-        android:elevation="6dp"
-        android:src="@drawable/schedule" />
-
-    <LinearLayout
-        android:id="@+id/textsplash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginLeft="300dp"
-        android:layout_marginTop="300dp"
-        android:elevation="6dp"
-        android:gravity="center"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:background="@drawable/bg"
         android:orientation="vertical">
-
-        <TextView
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Good Morning"
-            android:textColor="#FFF"
-            android:textSize="24sp" />
+            android:layout_height="0dp"
+            android:layout_weight="2">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UET Todo"
+                android:textColor="#FFF"
+                android:textSize="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                >
+            </TextView>
+        </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mr Panda Risky"
-            android:textColor="#FFF"
-            android:textSize="16sp" />
+        <GridLayout
+            android:id="@+id/menus"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:alignmentMode="alignMargins"
+            android:columnCount="2"
+            android:columnOrderPreserved="false"
+            android:padding="14dp"
+            android:rowCount="3">
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_columnWeight="1"
+                            android:layout_rowWeight="1"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            app:cardElevation="8dp"
+                            app:cardCornerRadius="8dp"
+                            >
+                            <LinearLayout
+                                android:layout_gravity="center_horizontal|center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_margin="16dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:id="@+id/btn1"
+                                >
+
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="87dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:src="@drawable/tkb1" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Thời khóa biểu"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"
+                                    android:textColor="#000"
+                                    />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_columnWeight="1"
+                            android:layout_rowWeight="1"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            app:cardElevation="8dp"
+                            app:cardCornerRadius="8dp"
+                            >
+                            <LinearLayout
+                                android:layout_gravity="center_horizontal|center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_margin="16dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:id="@+id/btn2"
+                                >
+
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="87dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:src="@drawable/exam" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Lịch thi"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_gravity="center"
+                                    android:textColor="#000"
+                                    />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_columnWeight="1"
+                            android:layout_rowWeight="1"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            app:cardElevation="8dp"
+                            app:cardCornerRadius="8dp"
+                            >
+                            <LinearLayout
+                                android:layout_gravity="center_horizontal|center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_margin="16dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:id="@+id/btn3"
+                                >
+
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="87dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:src="@drawable/pass" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Xem điểm thi"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_gravity="center"
+                                    android:textColor="#000"
+                                    />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_columnWeight="1"
+                            android:layout_rowWeight="1"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            app:cardElevation="8dp"
+                            app:cardCornerRadius="8dp"
+                            >
+                            <LinearLayout
+                                android:layout_gravity="center_horizontal|center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_margin="16dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:id="@+id/btn4"
+                                >
+
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="87dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:src="@drawable/options" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Cài đặt"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_gravity="center"
+                                    android:textColor="#000"
+                                    />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+        </GridLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/texthome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="28dp"
-        android:elevation="6dp"
-        android:gravity="left"
-        android:orientation="vertical"
-       >
+<!--    <ImageView-->
+<!--        android:id="@+id/bg"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:scaleType="fitXY"-->
+<!--        android:src="@drawable/bgapp" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="UET APP"
-            android:textColor="#FFF"
-            android:textSize="24sp" />
+<!--    <ImageView-->
+<!--        android:id="@+id/clover"-->
+<!--        android:layout_width="179dp"-->
+<!--        android:layout_height="179dp"-->
+<!--        android:layout_marginRight="228dp"-->
+<!--        android:elevation="6dp"-->
+<!--        android:src="@drawable/schedule" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Trợ lý của UETer"
-            android:textColor="#FFF"
-            android:textSize="16sp" />
+<!--    <LinearLayout-->
+<!--        android:id="@+id/textsplash"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="120dp"-->
+<!--        android:layout_marginLeft="300dp"-->
+<!--        android:layout_marginTop="300dp"-->
+<!--        android:elevation="6dp"-->
+<!--        android:gravity="center"-->
+<!--        android:orientation="vertical">-->
 
-    </LinearLayout>
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Good Morning"-->
+<!--            android:textColor="#FFF"-->
+<!--            android:textSize="24sp" />-->
 
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Mr Panda Risky"-->
+<!--            android:textColor="#FFF"-->
+<!--            android:textSize="16sp" />-->
 
-    <LinearLayout
-        android:id="@+id/menus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="240dp"
-        android:elevation="6dp"
-        android:orientation="vertical"
-       >
+<!--    </LinearLayout>-->
 
+<!--    <LinearLayout-->
+<!--        android:id="@+id/texthome"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="24dp"-->
+<!--        android:layout_marginTop="28dp"-->
+<!--        android:elevation="6dp"-->
+<!--        android:gravity="left"-->
+<!--        android:orientation="vertical"-->
+<!--       >-->
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="70dp"
-            android:orientation="horizontal">
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="UET APP"-->
+<!--            android:textColor="#FFF"-->
+<!--            android:textSize="24sp" />-->
 
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Trợ lý của UETer"-->
+<!--            android:textColor="#FFF"-->
+<!--            android:textSize="16sp" />-->
 
-            <LinearLayout
-                android:id="@+id/btn1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
-                android:gravity="center"
-                android:orientation="vertical">
-
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginBottom="4dp"
-                    android:src="@drawable/tkb1" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Thời khóa biểu"
-                    android:textColor="#0E1843"
-                    android:textSize="19sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/btn2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
-                android:gravity="center"
-                android:orientation="vertical">
+<!--    </LinearLayout>-->
 
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginBottom="4dp"
-                    android:src="@drawable/exam" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lịch thi"
-                    android:textColor="#0E1843"
-                    android:textSize="19sp" />
-
-            </LinearLayout>
+<!--    <LinearLayout-->
+<!--        android:id="@+id/menus"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="40dp"-->
+<!--        android:layout_marginTop="240dp"-->
+<!--        android:elevation="6dp"-->
+<!--        android:orientation="vertical"-->
+<!--       >-->
 
 
-        </LinearLayout>
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="70dp"-->
+<!--            android:orientation="horizontal">-->
 
 
-        <LinearLayout
-            android:id="@+id/btn3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="70dp"
-            android:orientation="horizontal">
+<!--            <LinearLayout-->
+<!--                android:id="@+id/btn1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginRight="50dp"-->
+<!--                android:gravity="center"-->
+<!--                android:orientation="vertical">-->
 
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
-                android:gravity="center"
-                android:orientation="vertical">
+<!--                <ImageView-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:layout_marginBottom="4dp"-->
+<!--                    android:src="@drawable/tkb1" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Thời khóa biểu"-->
+<!--                    android:textColor="#0E1843"-->
+<!--                    android:textSize="19sp" />-->
+
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/btn2"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginRight="50dp"-->
+<!--                android:gravity="center"-->
+<!--                android:orientation="vertical">-->
 
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginBottom="4dp"
-                    android:src="@drawable/pass" />
+<!--                <ImageView-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:layout_marginBottom="4dp"-->
+<!--                    android:src="@drawable/exam" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Xem điểm thi"
-                    android:textColor="#0E1843"
-                    android:textSize="19sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Lịch thi"-->
+<!--                    android:textColor="#0E1843"-->
+<!--                    android:textSize="19sp" />-->
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/btn4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
-                android:gravity="center"
-                android:orientation="vertical">
+<!--            </LinearLayout>-->
 
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginBottom="4dp"
-                    android:src="@drawable/options" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cài đặt"
-                    android:textColor="#0E1843"
-                    android:textSize="19sp" />
-
-            </LinearLayout>
+<!--        </LinearLayout>-->
 
 
-        </LinearLayout>
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="70dp"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/btn3"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginRight="50dp"-->
+<!--                android:gravity="center"-->
+<!--                android:orientation="vertical">-->
 
 
-    </LinearLayout>
+<!--                <ImageView-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:layout_marginBottom="4dp"-->
+<!--                    android:src="@drawable/pass" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Xem điểm thi"-->
+<!--                    android:textColor="#0E1843"-->
+<!--                    android:textSize="19sp" />-->
+
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/btn4"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginRight="50dp"-->
+<!--                android:gravity="center"-->
+<!--                android:orientation="vertical">-->
+
+
+<!--                <ImageView-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:layout_marginBottom="4dp"-->
+<!--                    android:src="@drawable/options" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Cài đặt"-->
+<!--                    android:textColor="#0E1843"-->
+<!--                    android:textSize="19sp" />-->
+
+<!--            </LinearLayout>-->
+
+
+<!--        </LinearLayout>-->
+
+
+<!--    </LinearLayout>-->
 <!--    <Button-->
 <!--        android:id="@+id/btn_get_all_subject"-->
 <!--        android:layout_width="132dp"-->

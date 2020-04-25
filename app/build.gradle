@@ -55,4 +55,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation files('Z:\\Mobile\\UET_Schedule_App\\android-zoom-view.jar')
+    implementation 'androidx.cardview:cardview:1.0.0'
 }
