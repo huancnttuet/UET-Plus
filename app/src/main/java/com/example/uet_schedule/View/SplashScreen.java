@@ -34,7 +34,7 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        View_LoadingRotate = (View) this.findViewById(R.id.view_loading_rotate);
+//        View_LoadingRotate = (View) this.findViewById(R.id.view_loading_rotate);
 
         final Animation animationRotate = AnimationUtils.loadAnimation(this,R.anim.anim_rotate);
         final Animation animationScale = AnimationUtils.loadAnimation(this,R.anim.anim_scale);
@@ -42,7 +42,7 @@ public class SplashScreen extends AppCompatActivity {
         AnimationSet groupAnimation = new AnimationSet(false);
         groupAnimation.addAnimation(animationRotate);
         groupAnimation.addAnimation(animationScale);
-        View_LoadingRotate.startAnimation(groupAnimation);
+//        View_LoadingRotate.startAnimation(groupAnimation);
         //get api -- all subject
 
 //        I_SubjectGetDataService service = SubjectClientInstance.getRetrofitInstance().create(I_SubjectGetDataService.class);
