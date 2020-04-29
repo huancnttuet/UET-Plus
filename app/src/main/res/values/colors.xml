@@ -5,4 +5,7 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="black">#050505</color>
     <color name="red">#ef473a</color>
+    <color name="pink">#FF377B</color>
+    <color name="dark_pink">#372B2F</color>
+    <color name="transparent">#656163</color>
 </resources>

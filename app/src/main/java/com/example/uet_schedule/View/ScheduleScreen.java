@@ -62,18 +62,20 @@ public class ScheduleScreen extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<List<String>>> call, Response<List<List<String>>> response) {
                 Log.d("Notify", "Success");
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                 List<List<String>> List_All_Subject = response.body();
                 if(List_All_Subject.size() == 0){
-                    Dialog message = new Dialog(getBaseContext());
+                    Dialog message = new Dialog(ScheduleScreen.this);
                     message.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     message.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    message.setContentView(R.layout.message_dialog);
+                    message.setContentView(R.layout.error_dialog);
                     message.show();
                     Button cancel = message.findViewById(R.id.cancel_btn);
                     cancel.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             message.dismiss();
+                            finish();
                         }
                     });
                 } else {
@@ -136,6 +138,20 @@ public class ScheduleScreen extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<List<String>>> call, Throwable t) {
                 Log.d("Notify", "Failed");
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                Dialog message = new Dialog(ScheduleScreen.this);
+                message.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                message.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                message.setContentView(R.layout.message_dialog);
+                message.show();
+                Button cancel = message.findViewById(R.id.cancel_btn);
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        message.dismiss();
+                        finish();
+                    }
+                });
             }
         });
 

@@ -39,7 +39,6 @@
             android:text="Tìm kiếm"
             android:textColor="#FFF"
             android:textSize="10dp" />
-
         <Button
             android:id="@+id/find_all_btn"
             android:layout_width="0dp"

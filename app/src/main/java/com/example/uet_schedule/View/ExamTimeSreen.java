@@ -17,9 +17,13 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.CompoundButton;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,12 +33,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 import com.example.uet_schedule.Presenter.I_SubjectGetDataService;
@@ -64,6 +70,29 @@ public class ExamTimeSreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide(); //<< this
         setContentView(R.layout.activity_exam_time_screen);
+
+        RadioButton list_view_rb = (RadioButton) findViewById(R.id.list_view);
+        list_view_rb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayout calendarViewLayout = findViewById(R.id.calendar_view_layout);
+                LinearLayout listViewLayout = findViewById(R.id.list_view_layout);
+                listViewLayout.setVisibility(LinearLayout.VISIBLE);
+                calendarViewLayout.setVisibility(LinearLayout.GONE);
+            }
+        });
+        RadioButton calendar_view_rb = (RadioButton) findViewById(R.id.calendar_view);
+        calendar_view_rb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayout calendarViewLayout = findViewById(R.id.calendar_view_layout);
+                LinearLayout listViewLayout = findViewById(R.id.list_view_layout);
+                listViewLayout.setVisibility(LinearLayout.GONE);
+                calendarViewLayout.setVisibility(LinearLayout.VISIBLE);
+            }
+        });
+
+
         Intent intent = getIntent();
         String mssv = intent.getStringExtra("mssv");
         Log.v("dada",mssv);
@@ -75,8 +104,8 @@ public class ExamTimeSreen extends AppCompatActivity {
                 findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                 Log.d("Notify", "Success");
                 List<List<String>> List_All_Exam_Time = response.body();
-                if(List_All_Exam_Time.size() == 0){
-                    Dialog message = new Dialog(getBaseContext());
+                if(List_All_Exam_Time == null || List_All_Exam_Time.size() == 0){
+                    Dialog message = new Dialog(ExamTimeSreen.this);
                     message.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     message.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     message.setContentView(R.layout.message_dialog);
@@ -86,9 +115,13 @@ public class ExamTimeSreen extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             message.dismiss();
+                            finish();
                         }
                     });
                 } else {
+
+
+                    showListExamTime(List_All_Exam_Time);
 
                     List<String> subjectnames =  new ArrayList<String>();
                     List<String> listday =  new ArrayList<String>();
@@ -122,6 +155,13 @@ public class ExamTimeSreen extends AppCompatActivity {
 
                     StartTime.setText("Từ " + new SimpleDateFormat("dd/MM/yyyy").format(cal_start.getTime()));
                     EndTime.setText(" đến " + new SimpleDateFormat("dd/MM/yyyy").format(cal_end.getTime()));
+
+                    TextView currentMonth = findViewById(R.id.month);
+                    TextView currentYear = findViewById(R.id.year);
+
+                    currentMonth.setText("   "+(new SimpleDateFormat("MMMM", Locale.US).format(cal_start.getTime())).toUpperCase());
+                    currentYear.setText("   "+listyear.get(0) + "   ");
+
                     date = cal_start.getTime();
                     months[1] = Feb(Integer.parseInt(dateFormat.format(date)));
                     dateFormat = new SimpleDateFormat("MM");
@@ -167,7 +207,7 @@ public class ExamTimeSreen extends AppCompatActivity {
                     LinearLayout.LayoutParams param_text = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
                     param_default.setMargins(5,5,5,5);
                     TextView[] textViews = new TextView[days.length];
-                    for(int i = 0 ; i < days.length; i++){
+                    for(int i = 7 ; i < days.length; i++){
                         cardViews[i] = new CardView(getBaseContext());
                         param[i] = new GridLayout.LayoutParams();
                         param[i].height = 0;
@@ -202,7 +242,7 @@ public class ExamTimeSreen extends AppCompatActivity {
 
 
                    for(int j = 0 ; j < listday.size(); ++j){
-                       for(int i = 0 ; i <days.length;i++){
+                       for(int i = 7 ; i <days.length;i++){
                            if(boxs[i].getTag() != null){
                                if(boxs[i].getTag().equals(listday.get(j))){
                                    TextView t = new TextView(getBaseContext());
@@ -211,6 +251,7 @@ public class ExamTimeSreen extends AppCompatActivity {
                                    t.setTextSize(6);
                                    boxs[i].addView(t);
                                    int finalJ = j;
+                                   cardViews[i].setCardBackgroundColor(Color.CYAN);
                                    cardViews[i].setOnClickListener(new View.OnClickListener() {
                                        @Override
                                        public void onClick(View v) {
@@ -227,6 +268,19 @@ public class ExamTimeSreen extends AppCompatActivity {
             public void onFailure(Call<List<List<String>>> call, Throwable t) {
                 Log.d("Notify", "Failed");
                 findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                Dialog message = new Dialog(ExamTimeSreen.this);
+                message.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                message.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                message.setContentView(R.layout.error_dialog);
+                message.show();
+                Button cancel = message.findViewById(R.id.cancel_btn);
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        message.dismiss();
+                        finish();
+                    }
+                });
             }
         });
 
@@ -286,13 +340,62 @@ public class ExamTimeSreen extends AppCompatActivity {
     }
 
 
+    public void showListExamTime(List<List<String>> List_All_Exam_Time){
+        LinearLayout listViewLayout = findViewById(R.id.list_view_layout);
+        CardView[] cardViews = new CardView[List_All_Exam_Time.size()];
+        LinearLayout[] linearLayouts = new LinearLayout[List_All_Exam_Time.size()];
+        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams cardViewParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 134);
+        cardViewParam.setMargins(5,5,5,5);
+        param.setMargins(3,3,3,3);
+        for(int i = 0 ; i < List_All_Exam_Time.size();++i){
+            cardViews[i] = new CardView(ExamTimeSreen.this);
+            cardViews[i].setLayoutParams(cardViewParam);
+            cardViews[i].setCardElevation(15);
+            cardViews[i].setRadius(15);
 
+            linearLayouts[i]= new LinearLayout(ExamTimeSreen.this);
+            linearLayouts[i].setLayoutParams(param);
+            linearLayouts[i].setOrientation(LinearLayout.VERTICAL);
+            linearLayouts[i].setPadding(2,2,2,2);
+            TextView subjectName = new TextView(ExamTimeSreen.this);
+            TextView examTime = new TextView(ExamTimeSreen.this);
+            TextView sbd = new TextView(ExamTimeSreen.this);
+
+            subjectName.setTextSize(18);
+            subjectName.setText(List_All_Exam_Time.get(i).get(7));
+            examTime.setText("Địa điểm : "+List_All_Exam_Time.get(i).get(11));
+            sbd.setText("SBD : " + List_All_Exam_Time.get(i).get(5) + "        " + List_All_Exam_Time.get(i).get(9) + " - " + List_All_Exam_Time.get(i).get(8));
+            linearLayouts[i].addView(subjectName);
+            linearLayouts[i].addView(sbd);
+            linearLayouts[i].addView(examTime);
+            cardViews[i].addView(linearLayouts[i]);
+            listViewLayout.addView(cardViews[i]);
+            int finalJ = i;
+            cardViews[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openDialog(List_All_Exam_Time.get(finalJ));
+                }
+            });
+
+        }
+
+    }
 
 //        CalendarView simpleCalendarView = (CalendarView) findViewById(R.id.simpleCalendarView); // get the reference of CalendarView
 //        long selectedDate = simpleCalendarView.getDate();
 //        long currentTime = Calendar.getInstance().getTimeInMillis();
 //        simpleCalendarView.setDate(currentTime);
-
+    String getMonthForInt(int num) {
+        String month = "wrong";
+        DateFormatSymbols dfs = new DateFormatSymbols();
+        String[] months = dfs.getMonths();
+        if (num >= 0 && num <= 11 ) {
+            month = months[num];
+        }
+        return month;
+}
 
 
 }

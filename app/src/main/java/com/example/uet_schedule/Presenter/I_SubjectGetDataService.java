@@ -21,6 +21,9 @@ public interface I_SubjectGetDataService {
     @GET ("/score/getAll")
     Call<List<List<String>>> getScore(@Query("term") int term);
 
+    @GET ("/score/search")
+    Call<List<List<List<String>>>> searchGrades(@Query("input") String input,@Query("term") int term,@Query("type_education") int type_education);
+
     @GET ("/exam-time")
     Call<List<List<String>>> getExamTime(@Query("mssv") String mssv);
 
