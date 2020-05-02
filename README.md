@@ -1,6 +1,6 @@
-# Navigation Drawer with Fragment
+#UET PLUS
 
-Sample project app Menu Navigation Drawer with Fragment
+Android App
 
 #### Note :
 - Don't forget to insert menu_nav_drawer.xml in folder menu.
