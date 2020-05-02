@@ -6,4 +6,7 @@
 
     <!-- Custom Color -->
     <color name="colorLightRed">#F04B4B</color>
+    <color name="pink">#FF377B</color>
+    <color name="dark_pink">#372B2F</color>
+    <color name="transparent">#656163</color>
 </resources>
