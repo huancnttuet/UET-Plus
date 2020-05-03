@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.uetplus.R;
+import com.uetplus.ui.MainActivity;
 import com.uetplus.ui.SaveSharedPreference;
 import com.uetplus.ui.services.Api;
 import com.uetplus.ui.services.Router;
@@ -58,7 +59,7 @@ public class ExamTimeFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Lịch thi");
         final View root = inflater.inflate(R.layout.fragment_exam_time, container, false);
 
         RadioButton list_view_rb = (RadioButton) root.findViewById(R.id.list_view);

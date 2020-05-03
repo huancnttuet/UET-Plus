@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.uetplus.R;
+import com.uetplus.ui.MainActivity;
 import com.uetplus.ui.services.Api;
 import com.uetplus.ui.services.Router;
 
@@ -37,6 +38,7 @@ public class GradesFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Điểm thi");
         final View root = inflater.inflate(R.layout.fragment_grades, container, false);
 
         final EditText find_input = root.findViewById(R.id.find_input);

@@ -20,12 +20,15 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.gson.Gson;
 import com.uetplus.R;
 import com.uetplus.ui.LoginActivity;
 import com.uetplus.ui.MainActivity;
 import com.uetplus.ui.SaveSharedPreference;
+import com.uetplus.ui.services.Api;
 import com.uetplus.ui.services.I_LoginApi;
 import com.uetplus.ui.services.LoginApi;
+import com.uetplus.ui.services.Router;
 
 import java.util.List;
 
@@ -90,6 +93,9 @@ public class LoginFragment extends Fragment {
                             Log.v("Login","Success");
                             SaveSharedPreference.setPrefData(getActivity(),data);
                             SaveSharedPreference.setUserName(getActivity(),input1);
+//                            if(SaveSharedPreference.getUserName(getActivity()).length() != 0){
+//                                callApiGetFirst(SaveSharedPreference.getUserName(getActivity()));
+//                            }
                             startActivity(new Intent(view.getContext(), MainActivity.class));
                             getActivity().finish();
                         }
@@ -125,8 +131,39 @@ public class LoginFragment extends Fragment {
         });
     }
 
-    public void callApiGetFirst(){
-
-    }
+//    public void callApiGetFirst(String mssv){
+//        Router service = Api.getRetrofitInstance().create(Router.class);
+//        Call call = service.getTimeTable(mssv);
+//        call.enqueue(new Callback<List<List<String>>>() {
+//            @Override
+//            public void onResponse(Call<List<List<String>>> call, Response<List<List<String>>> response) {
+//                List<List<String>> list = response.body();
+//                Gson gson = new Gson();
+//                String value = gson.toJson(list);
+//                SaveSharedPreference.setCache(getActivity(),"timetable", value);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<List<String>>> call, Throwable t) {
+//                Log.v("getFirst","Fail");
+//            }
+//        });
+//
+//        Call call2 = service.getExamTime(mssv);
+//        call2.enqueue(new Callback<List<List<String>>>() {
+//            @Override
+//            public void onResponse(Call<List<List<String>>> call, Response<List<List<String>>> response) {
+//                List<List<String>> list = response.body();
+//                Gson gson = new Gson();
+//                String value = gson.toJson(list);
+//                SaveSharedPreference.setCache(getActivity(),"examtime", value);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<List<String>>> call, Throwable t) {
+//                Log.v("getFirst","Fail");
+//            }
+//        });
+//    }
 
 }
