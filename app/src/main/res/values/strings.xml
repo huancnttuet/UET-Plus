@@ -21,5 +21,6 @@
     <string name="register">Register</string>
     <string name="re_type_password">Re-type Password</string>
     <string name="your_name">Full Name</string>
-
+    <string name="channel_name">test</string>
+    <string name="channel_description">test</string>
 </resources>

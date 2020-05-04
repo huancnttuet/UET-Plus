@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +51,9 @@ public class HomeFragment extends Fragment {
         List<List<List<String>>> list = gson.fromJson(data,listType);
         List<List<String>> courses = list.get(1);
         LinearLayout coursesView = view.findViewById(R.id.courses_list_view);
-        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,134);
+        int width = (int) getResources().getDimension(R.dimen.home_card_view_width);
+        int height = (int) getResources().getDimension(R.dimen.home_card_view_height);
+        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,height);
         LinearLayout.LayoutParams paramWrapper = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         param.setMargins(20,10,20,10);
         for(int i = 0; i < courses.size(); i++){
@@ -78,7 +81,7 @@ public class HomeFragment extends Fragment {
             wrapper.setOrientation(LinearLayout.HORIZONTAL);
 
             CardView cardViewCode = new CardView(view.getContext());
-            LinearLayout.LayoutParams paramCard = new LinearLayout.LayoutParams(134,134);
+            LinearLayout.LayoutParams paramCard = new LinearLayout.LayoutParams(width,height);
             cardViewCode.setLayoutParams(paramCard);
             cardViewCode.setRadius(9);
             cardViewCode.setCardBackgroundColor(Color.parseColor("#FF5555"));
@@ -86,12 +89,12 @@ public class HomeFragment extends Fragment {
             TextView codeText = new TextView(view.getContext());
             codeText.setText(courseCode);
             codeText.setTextColor(Color.WHITE);
-            codeText.setTextSize(10);
+            codeText.setTextSize(TypedValue.COMPLEX_UNIT_DIP,10);
             codeText.setGravity(Gravity.CENTER);
 
             TextView nameText = new TextView(view.getContext());
             nameText.setText(courseName);
-            nameText.setTextSize(19);
+            nameText.setTextSize(TypedValue.COMPLEX_UNIT_DIP,19);
             nameText.setGravity(Gravity.CENTER);
             cardViewCode.addView(codeText);
             wrapper.addView(cardViewCode);

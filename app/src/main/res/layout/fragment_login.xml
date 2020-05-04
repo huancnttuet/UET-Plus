@@ -56,7 +56,7 @@
             android:fontFamily="@font/roboto_regular"
             android:layout_above="@id/et_password"
             android:background="@drawable/et_custom"
-            android:textSize="15sp" />
+            android:textSize="15dp" />
 
         <EditText
             android:id="@+id/et_password"
@@ -71,7 +71,7 @@
             android:inputType="textPassword"
             android:layout_centerInParent="true"
             android:background="@drawable/et_custom"
-            android:textSize="15sp" />
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/btn_login"

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -117,7 +118,7 @@ public class TimeTableFragment extends Fragment {
 
             list_button[k]= new Button(getContext());
             list_button[k].setId(k);
-            list_button[k].setTextSize(9);
+            list_button[k].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 9);
             list_button[k].setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
             list_button[k].setText(subject.get(0));
             if(subject.get(6).equals("2")){

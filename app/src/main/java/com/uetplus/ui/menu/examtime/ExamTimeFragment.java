@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -198,6 +199,8 @@ public class ExamTimeFragment extends Fragment {
         CardView[] cardViews = new CardView[List_All_Exam_Time.size()];
         LinearLayout[] linearLayouts = new LinearLayout[List_All_Exam_Time.size()];
         LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        int height = (int) getResources().getDimension(R.dimen.home_card_view_height);
+
         LinearLayout.LayoutParams cardViewParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 134);
         cardViewParam.setMargins(5,5,5,5);
         param.setMargins(3,3,3,3);
@@ -215,10 +218,12 @@ public class ExamTimeFragment extends Fragment {
             TextView examTime = new TextView(v.getContext());
             TextView sbd = new TextView(v.getContext());
 
-            subjectName.setTextSize(18);
+            subjectName.setTextSize(TypedValue.COMPLEX_UNIT_DIP,18);
             subjectName.setText(List_All_Exam_Time.get(i).get(7));
             examTime.setText("Địa điểm : "+List_All_Exam_Time.get(i).get(11));
+            examTime.setTextSize(TypedValue.COMPLEX_UNIT_DIP,12);
             sbd.setText("SBD : " + List_All_Exam_Time.get(i).get(5) + "        " + List_All_Exam_Time.get(i).get(9) + " - " + List_All_Exam_Time.get(i).get(8));
+            sbd.setTextSize(TypedValue.COMPLEX_UNIT_DIP,12);
             linearLayouts[i].addView(subjectName);
             linearLayouts[i].addView(sbd);
             linearLayouts[i].addView(examTime);
@@ -362,7 +367,7 @@ public class ExamTimeFragment extends Fragment {
                         TextView t = new TextView(root.getContext());
                         t.setLayoutParams(param_text);
                         t.setText(subjectnames.get(j));
-                        t.setTextSize(6);
+                        t.setTextSize(TypedValue.COMPLEX_UNIT_DIP,6);
                         boxs[i].addView(t);
                         final int finalJ = j;
                         final List<List<String>> listExamTime = List_All_Exam_Time;

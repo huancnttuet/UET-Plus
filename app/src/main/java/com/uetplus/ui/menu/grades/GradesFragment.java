@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -140,21 +141,23 @@ public class GradesFragment extends Fragment {
             cardViews[i].setCardElevation(10);
 
             layouts[i] = new LinearLayout(v.getContext());
-            layouts[i].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            layouts[i].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             layouts[i].setOrientation(LinearLayout.VERTICAL);
             layouts[i].setPadding(10,10,10,10);
             textViews1[i] = new TextView(v.getContext());
             textViews1[i].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            textViews1[i].setTextSize(20);
+            textViews1[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 19);
             textViews1[i].setText(result.get(i).get(0));
 
             textViews2[i] = new TextView(v.getContext());
             textViews2[i].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             textViews2[i].setText(result.get(i).get(1));
+            textViews2[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
 
             textViews3[i] = new TextView(v.getContext());
             textViews3[i].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             textViews3[i].setText(result.get(i).get(3));
+            textViews3[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
 
             layouts[i].addView(textViews1[i]);
             layouts[i].addView(textViews2[i]);

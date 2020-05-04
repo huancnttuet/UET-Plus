@@ -43,7 +43,7 @@
                     android:gravity="center"
                     android:text="List"
                     android:textColor="#FFF"
-
+                    android:textSize="14dp"
                     />
 
                 <RadioButton
@@ -59,7 +59,9 @@
                     android:checked="true"
                     android:gravity="center"
                     android:text="Calendar"
-                    android:textColor="#FFF" />
+                    android:textColor="#FFF"
+                    android:textSize="14dp"
+                    />
             </RadioGroup>
         </LinearLayout>
 
@@ -166,12 +168,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     >
+
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/mon"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:text="@string/mon"
                         android:textColor="#000"
+                        android:textSize="14dp"
                         />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -199,6 +203,7 @@
                         android:text="@string/tue"
                         android:layout_gravity="center"
                         android:textColor="#000"
+                        android:textSize="14dp"
                         />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -226,6 +231,7 @@
                         android:text="@string/wed"
                         android:layout_gravity="center"
                         android:textColor="#000"
+                        android:textSize="14dp"
                         />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -253,6 +259,7 @@
                         android:text="@string/thu"
                         android:layout_gravity="center"
                         android:textColor="#000"
+                        android:textSize="14dp"
                         />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -279,6 +286,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:text="@string/fri"
+                        android:textSize="14dp"
                         android:textColor="#000" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -306,6 +314,7 @@
                         android:text="@string/sat"
                         android:layout_gravity="center"
                         android:textColor="#000"
+                        android:textSize="14dp"
                         />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -334,7 +343,7 @@
                         android:text="@string/sun"
                         android:layout_gravity="center"
                         android:textColor="#000"
-
+                        android:textSize="14dp"
                         />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

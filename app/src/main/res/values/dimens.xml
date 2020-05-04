@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="home_card_view_width">69dp</dimen>
+    <dimen name="home_card_view_height">69dp</dimen>
+</resources>
