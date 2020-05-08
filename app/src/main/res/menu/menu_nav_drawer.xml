@@ -11,6 +11,11 @@
             app:actionViewClass="android.widget.TextView"
             android:icon="@drawable/ic_home"
             android:title="Home" />
+        <item
+            android:id="@+id/menu_news"
+            app:actionViewClass="android.widget.TextView"
+            android:icon="@drawable/ic_news"
+            android:title="Tin tức" />
 
         <item
             android:id="@+id/menu_time_table"

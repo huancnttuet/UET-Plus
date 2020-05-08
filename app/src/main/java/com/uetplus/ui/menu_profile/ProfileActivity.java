@@ -35,14 +35,12 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         setTitle("Hồ sơ");
 
-
         String te = SaveSharedPreference.getPrefData(this);
-        Log.v("dasdas","te");
-        Log.v("dasdas",te);
+
         Gson gson = new Gson();
         Type listType = new TypeToken<List<List<List<String>>>>() {}.getType();
         List<List<List<String>>> list = gson.fromJson(te,listType);
-        Log.v("daad", String.valueOf(list.size()));
+
         List<List<String>> info = list.get(0);
         List<String> urlImage = list.get(2).get(0);
 

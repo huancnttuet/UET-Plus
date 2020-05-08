@@ -13,4 +13,12 @@ public interface I_LoginApi {
     @GET("/infomation")
     Call<List<List<List<String>>>> getInfo(@Query("username") String username, @Query("password") String password);
 
+    //newsfeed
+
+    @GET("/news/getnewsfeed")
+    Call<List<List<String>>> getNewsfeed();
+
+    @GET("/news/getfromurl")
+    Call<String> getFromUrl(@Query("url") String url);
+
 }

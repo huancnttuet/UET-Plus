@@ -2,4 +2,6 @@
 <resources>
     <dimen name="home_card_view_width">69dp</dimen>
     <dimen name="home_card_view_height">69dp</dimen>
+    <dimen name="newsfeed_card_view_width">139dp</dimen>
+    <dimen name="newsfeed_card_view_height">89dp</dimen>
 </resources>
