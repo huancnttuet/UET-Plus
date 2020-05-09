@@ -1,5 +1,6 @@
 package com.uetplus.ui.menu.examtime;
 
+
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -38,8 +40,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -48,14 +53,10 @@ import retrofit2.Response;
 
 public class ExamTimeFragment extends Fragment {
 
-    public static String[] days;
-    public static int[] months = {31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    int today, beginOfMonth;
-    String month, year;
-
-    DateFormat dateFormat;
-    Date date;
-
+    List<String> subjectnames =  new ArrayList<String>();
+    List<String> listday =  new ArrayList<String>();
+    List<String> listmonth =  new ArrayList<String>();
+    List<String> listyear =  new ArrayList<String>();
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -94,7 +95,7 @@ public class ExamTimeFragment extends Fragment {
             showCalendarExamTime(list, root);
         } else{
             String mssv = SaveSharedPreference.getUserName(getActivity());
-            Log.v("Cache",mssv);
+
             Router service = Api.getRetrofitInstance().create(Router.class);
             Call<List<List<String>>> call = service.getExamTime(mssv);
             call.enqueue(new Callback<List<List<String>>>() {
@@ -127,13 +128,10 @@ public class ExamTimeFragment extends Fragment {
 
 
     public int Feb(int year) {
-        int temp;
-        try {
-            temp = year / 4;
-        } catch (Exception e) {
-            return 28;
-        }
-        return 29;
+       if(year % 4 == 0){
+           return 29;
+       }
+       return 28;
     }
     public int Day(String day) throws ParseException {
         DateFormat df = new SimpleDateFormat("ddMMyyyy");
@@ -244,11 +242,7 @@ public class ExamTimeFragment extends Fragment {
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void showCalendarExamTime(List<List<String>> List_All_Exam_Time, View root){
-        List<String> subjectnames =  new ArrayList<String>();
-        List<String> listday =  new ArrayList<String>();
-        List<String> listmonth =  new ArrayList<String>();
-        List<String> listyear =  new ArrayList<String>();
+    public void showCalendarExamTime(final List<List<String>> List_All_Exam_Time, final View root){
         String sn;
         String d,m,y;
         for(List<String> r : List_All_Exam_Time){
@@ -262,9 +256,7 @@ public class ExamTimeFragment extends Fragment {
             listyear.add(y);
         }
 
-        GridLayout calendar = root.findViewById(R.id.calendar);
-        dateFormat = new SimpleDateFormat("yyyy");
-        Calendar cal_start = Calendar.getInstance();
+        final Calendar cal_start = Calendar.getInstance();
         Calendar cal_end = Calendar.getInstance();
         cal_start.set(Calendar.YEAR, Integer.parseInt(listyear.get(0)));
         cal_start.set(Calendar.MONTH, Integer.parseInt(listmonth.get(0)) - 1);
@@ -278,21 +270,64 @@ public class ExamTimeFragment extends Fragment {
         StartTime.setText("Từ " + new SimpleDateFormat("dd/MM/yyyy").format(cal_start.getTime()));
         EndTime.setText(" đến " + new SimpleDateFormat("dd/MM/yyyy").format(cal_end.getTime()));
 
-        TextView currentMonth = root.findViewById(R.id.month);
-        TextView currentYear = root.findViewById(R.id.year);
+        drawCalendarMonthly(root,cal_start, List_All_Exam_Time);
 
-        currentMonth.setText("   "+(new SimpleDateFormat("MMMM", Locale.US).format(cal_start.getTime())).toUpperCase());
-        currentYear.setText("   "+listyear.get(0) + "   ");
+        Button pre_btn = root.findViewById(R.id.pre);
+        Button next_btn = root.findViewById(R.id.next);
+        pre_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int now = cal_start.get(Calendar.MONTH);
+                int now_year = cal_start.get(Calendar.YEAR);
+                if(now == 0){
+                    now = 11;
+                    now_year--;
+                } else {
+                    now--;
+                }
+                cal_start.set(Calendar.MONTH, now);
+                cal_start.set(Calendar.YEAR, now_year);
+                drawCalendarMonthly(root,cal_start, List_All_Exam_Time);
+            }
+        });
 
-        date = cal_start.getTime();
-        months[1] = Feb(Integer.parseInt(dateFormat.format(date)));
-        dateFormat = new SimpleDateFormat("MM");
-        int numDays = months[Integer.parseInt(dateFormat.format(date))-1] + 6; // Number of days in the month as well as making sure not to override the day names
+        next_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int now = cal_start.get(Calendar.MONTH);
+                int now_year = cal_start.get(Calendar.YEAR);
+                if(now == 11){
+                    now = 0;
+                    now_year++;
+                } else {
+                    now++;
+                }
+                cal_start.set(Calendar.MONTH, now);
+                cal_start.set(Calendar.YEAR, now_year);
+                drawCalendarMonthly(root,cal_start, List_All_Exam_Time);
+            }
+        });
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void drawCalendarMonthly(View root, Calendar calendarMonthly , List<List<String>> List_All_Exam_Time){
+        String[] days;
+        int[] months = {31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        int beginOfMonth = 0;
+        String month, year;
+        Date date;
+        GridLayout calendar = root.findViewById(R.id.calendar);
+
+        calendar.removeAllViews();
+
+        date = calendarMonthly.getTime();
+
+        months[1] = Feb(Integer.parseInt(new SimpleDateFormat("yyyy").format(date)));
+        int numDays = months[Integer.parseInt(new SimpleDateFormat("MM").format(date))-1] + 6; // Number of days in the month as well as making sure not to override the day names
         // Check which day of the month the month started on. Eg: April 1st 2016 is a Friday
-        dateFormat = new SimpleDateFormat("MM");
-        month = dateFormat.format(date);
-        dateFormat = new SimpleDateFormat("yyyy");
-        year = dateFormat.format(date);
+        month = new SimpleDateFormat("MM").format(date);
+        year = new SimpleDateFormat("yyyy").format(date);
         try {
             beginOfMonth = (Day("01"+month+year))-1; // Get the beginning of the month (-1 because Android recognizes Sunday as the first day)
         } catch (ParseException pe) {
@@ -302,16 +337,13 @@ public class ExamTimeFragment extends Fragment {
             beginOfMonth = 7;
         }
         days = new String[numDays+beginOfMonth];
-        days[0] = "Mon";
-        days[1] = "Tue";
-        days[2] = "Wed";
-        days[3] = "Thu";
-        days[4] = "Fri";
-        days[5] = "Sat";
-        days[6] = "Sun";
-        dateFormat = new SimpleDateFormat("dd");
-        String temp = dateFormat.format(date);
-        today = Integer.parseInt(temp);
+        days[0] = "T2";
+        days[1] = "T3";
+        days[2] = "T4";
+        days[3] = "T5";
+        days[4] = "T6";
+        days[5] = "T7";
+        days[6] = "CN";
 
         if(beginOfMonth != 0) {
             for (int i = 7; i <= (5 + beginOfMonth); i++) {
@@ -322,30 +354,54 @@ public class ExamTimeFragment extends Fragment {
             days[i] = Integer.toString(i-beginOfMonth-5);
         }
 
+        TextView currentMonth = root.findViewById(R.id.month);
+        TextView currentYear = root.findViewById(R.id.year);
+        String stringMonth = new SimpleDateFormat("MMMM").format(date);
+        currentMonth.setText("   "+ stringMonth.substring(0, 1).toUpperCase() + stringMonth.substring(1));
+        currentYear.setText("   "+new SimpleDateFormat("yyyy").format(date) + "   ");
+
         CardView[] cardViews = new CardView[days.length];
         GridLayout.LayoutParams[] param = new GridLayout.LayoutParams[days.length];
         LinearLayout[] boxs = new LinearLayout[days.length];
-        LinearLayout.LayoutParams param_default = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams param_default = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         LinearLayout.LayoutParams param_text = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         param_default.setMargins(5,5,5,5);
         TextView[] textViews = new TextView[days.length];
-        for(int i = 7 ; i < days.length; i++){
+        for(int i = 0 ; i < days.length; i++){
             cardViews[i] = new CardView(root.getContext());
-            param[i] = new GridLayout.LayoutParams();
-            param[i].height = 0;
-            param[i].width = 0;
-            param[i].setMargins(2,2,2,2);
-            param[i].rowSpec = GridLayout.spec(GridLayout.UNDEFINED,1f);
-            param[i].columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
-            cardViews[i].setLayoutParams(param[i]);
-            cardViews[i].setCardElevation(15);
-            cardViews[i].setRadius(15);
-
             boxs[i] = new LinearLayout(root.getContext());
-            boxs[i].setLayoutParams(param_default);
-            boxs[i].setOrientation(LinearLayout.VERTICAL);
-            boxs[i].setGravity(Gravity.CENTER_VERTICAL);
+            if(i < 7){
+                LinearLayout.LayoutParams param_c = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+                param_c.gravity = Gravity.CENTER;
+                boxs[i].setLayoutParams(param_c);
+                boxs[i].setGravity(Gravity.CENTER);
+                param[i] = new GridLayout.LayoutParams();
+                param[i].height = 50;
+                param[i].width = 0;
+                param[i].setMargins(2,2,2,2);
+                param[i].columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+                cardViews[i].setLayoutParams(param[i]);
 
+                if(i != 6){
+                    cardViews[i].setBackgroundColor(Color.parseColor("#85E77D"));
+                }else {
+                    cardViews[i].setBackgroundColor(Color.parseColor("#F14A60"));
+                }
+            } else {
+                param[i] = new GridLayout.LayoutParams();
+                param[i].height = 0;
+                param[i].width = 0;
+                param[i].setMargins(2,2,2,2);
+                param[i].rowSpec = GridLayout.spec(GridLayout.UNDEFINED,1f);
+                param[i].columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+                cardViews[i].setLayoutParams(param[i]);
+                cardViews[i].setCardElevation(15);
+                cardViews[i].setRadius(15);
+
+                boxs[i].setLayoutParams(param_default);
+                boxs[i].setOrientation(LinearLayout.VERTICAL);
+                boxs[i].setGravity(Gravity.CENTER_VERTICAL);
+            }
             if(!"".equals(days[i])){
                 boxs[i].setTag(days[i]);
             }
@@ -355,29 +411,49 @@ public class ExamTimeFragment extends Fragment {
             textViews[i].setTextColor(Color.BLACK);
             textViews[i].setGravity(Gravity.CENTER);
             textViews[i].setText(days[i]);
+
             boxs[i].addView(textViews[i]);
             cardViews[i].addView(boxs[i]);
             calendar.addView(cardViews[i]);
         }
 
-        for(int j = 0 ; j < listday.size(); ++j){
-            for(int i = 7 ; i <days.length;i++){
+        Calendar now = Calendar.getInstance();
+        int now_month = now.get(Calendar.MONTH);
+        int now_year = now.get(Calendar.YEAR);
+        int now_day = now.get(Calendar.DAY_OF_MONTH);
+        if(calendarMonthly.get(Calendar.MONTH) == now_month && calendarMonthly.get(Calendar.YEAR) == now_year){
+            for(int i = 7 ; i < days.length; i++){
                 if(boxs[i].getTag() != null){
-                    if(boxs[i].getTag().equals(listday.get(j))){
-                        TextView t = new TextView(root.getContext());
-                        t.setLayoutParams(param_text);
-                        t.setText(subjectnames.get(j));
-                        t.setTextSize(TypedValue.COMPLEX_UNIT_DIP,6);
-                        boxs[i].addView(t);
-                        final int finalJ = j;
-                        final List<List<String>> listExamTime = List_All_Exam_Time;
-                        cardViews[i].setCardBackgroundColor(Color.CYAN);
-                        cardViews[i].setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                openDialog(listExamTime.get(finalJ), v);
-                            }
-                        });
+                    if(boxs[i].getTag().equals(String.valueOf(now_day))){
+                        cardViews[i].setCardBackgroundColor(getResources().getColor(R.color.calendar_today));
+                    }
+                }
+            }
+        }
+
+        int current_month = calendarMonthly.get(Calendar.MONTH);
+        int current_year = calendarMonthly.get(Calendar.YEAR);
+
+        for(int j = 0 ; j < listday.size(); ++j){
+            if(listmonth.get(j).equals(String.valueOf(current_month+1)) && listyear.get(j).equals(String.valueOf(current_year))){
+                for(int i = 7 ; i <days.length;i++){
+                    if(boxs[i].getTag() != null){
+                        if(boxs[i].getTag().equals(listday.get(j))){
+                            TextView t = new TextView(root.getContext());
+                            t.setLayoutParams(param_text);
+                            t.setText(subjectnames.get(j));
+                            t.setTextSize(TypedValue.COMPLEX_UNIT_DIP,6);
+                            boxs[i].addView(t);
+                            final int finalJ = j;
+                            final List<List<String>> listExamTime = List_All_Exam_Time;
+                            cardViews[i].setCardBackgroundColor(Color.CYAN);
+                            cardViews[i].setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    openDialog(listExamTime.get(finalJ), v);
+                                }
+                            });
+                        }
                     }
                 }
             }

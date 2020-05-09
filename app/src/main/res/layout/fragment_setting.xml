@@ -1,12 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
+    android:layout_height="match_parent"
+    android:gravity="top"
+    >
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Menu Setting"
-        android:textSize="24sp"
-        android:gravity="center"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_margin="20dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nhận thông báo"
+            android:textSize="24dp"
+            android:layout_margin="10dp"
+            />
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Thời khóa biểu" />
+        <Switch
+            android:id="@+id/switch2"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Lịch thi" />
+        <Switch
+            android:id="@+id/switch3"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Điểm thi" />
+    </LinearLayout>
+
+
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Cài đặt khác"-->
+<!--        android:textSize="24dp"-->
+<!--        android:layout_margin="10dp"-->
+<!--        />-->
 </LinearLayout>

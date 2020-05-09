@@ -10,4 +10,5 @@
     <color name="pink">#FF377B</color>
     <color name="dark_pink">#372B2F</color>
     <color name="transparent">#656163</color>
+    <color name="calendar_today">#339999</color>
 </resources>

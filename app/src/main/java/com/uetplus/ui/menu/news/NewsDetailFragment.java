@@ -12,10 +12,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.URLSpan;
 import android.util.Log;
 
 import android.view.LayoutInflater;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -63,16 +67,16 @@ public class NewsDetailFragment extends Fragment implements Html.ImageGetter {
         String title = arguments.getString("title");
         ((MainActivity) getActivity()).getSupportActionBar().setTitle(title);
         final View view =  inflater.inflate(R.layout.fragment_news_detail, container, false);
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
-        TextView toolbarText = view.findViewById(R.id.title);
-        toolbarText.setText(title);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
+//        Toolbar toolbar = view.findViewById(R.id.toolbar);
+//        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+//        TextView toolbarText = view.findViewById(R.id.title);
+//        toolbarText.setText(title);
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getActivity().onBackPressed();
+//            }
+//        });
 
         String link = arguments.getString("link");
 
@@ -84,13 +88,7 @@ public class NewsDetailFragment extends Fragment implements Html.ImageGetter {
             public void onResponse(Call<String>call, Response<String> response) {
                 view.findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                 String data = response.body();
-                Spannable html;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                    html = (Spannable) Html.fromHtml(data, Html.FROM_HTML_MODE_LEGACY, NewsDetailFragment.this, null);
-                } else {
-                    html = (Spannable) Html.fromHtml(data, NewsDetailFragment.this, null);
-                }
-                txtDescription.setText(html);
+                setTextViewHTML(txtDescription,data);
             }
 
             @Override
@@ -104,16 +102,16 @@ public class NewsDetailFragment extends Fragment implements Html.ImageGetter {
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
-    }
-    @Override
-    public void onStop() {
-        super.onStop();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+//    }
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+//    }
 
     @Override
     public Drawable getDrawable(String s) {
@@ -160,5 +158,49 @@ public class NewsDetailFragment extends Fragment implements Html.ImageGetter {
         }
     }
 
+    protected void makeLinkClickable(SpannableStringBuilder strBuilder, final URLSpan span)
+    {
+        int start = strBuilder.getSpanStart(span);
+        int end = strBuilder.getSpanEnd(span);
+        int flags = strBuilder.getSpanFlags(span);
+        ClickableSpan clickable = new ClickableSpan() {
+            public void onClick(View view) {
+                // Do something with span.getURL() to handle the link click...
+                Log.v("Click",span.getURL());
+                String link = span.getURL();
+                Fragment fragment = new NewsDetailFragment();
+                Bundle arguments = new Bundle();
+                arguments.putString( "link" , link);
+                arguments.putString("title", link);
+                fragment.setArguments(arguments);
+
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(R.anim.enter,R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
+                        .replace(R.id.content_frame, fragment)
+                        .addToBackStack("news")
+                        .commit();
+            }
+        };
+        strBuilder.setSpan(clickable, start, end, flags);
+        strBuilder.removeSpan(span);
+    }
+
+    protected void setTextViewHTML(TextView text, String html)
+    {
+        CharSequence sequence = Html.fromHtml(html);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            sequence = (CharSequence) Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY, NewsDetailFragment.this, null);
+        } else {
+            sequence = (CharSequence) Html.fromHtml(html, NewsDetailFragment.this, null);
+        }
+        SpannableStringBuilder strBuilder = new SpannableStringBuilder(sequence);
+        URLSpan[] urls = strBuilder.getSpans(0, sequence.length(), URLSpan.class);
+        for(URLSpan span : urls) {
+            makeLinkClickable(strBuilder, span);
+        }
+        text.setText(strBuilder);
+        text.setMovementMethod(LinkMovementMethod.getInstance());
+    }
 
 }

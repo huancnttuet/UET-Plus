@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">UET Plus</string>
+    <string name="version">Version BETA 2.1</string>
+    <string name="app_description">UET Plus - Ứng dụng hỗ trợ sinh viên, người học theo dõi các hoạt động của trường một cách chủ động hơn.\nĐây là ứng dụng hoàn toán miễn phí. Những chi phí phát sinh trong quá trình sử dụng ứng dụng đều do nhà mạng thu phí.\n \n \nLiên hệ chúng tôi : uetplus@gmail.com </string>
+    <string name="app_license">Bản quyền Copyright &#169; 2020 HyperMiner, Inc</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 

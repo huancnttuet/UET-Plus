@@ -1,0 +1,6 @@
+<selector xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:state_focused="true" android:state_pressed="false" android:drawable="@drawable/next_button" tools:ignore="ResourceCycle" />
+<item android:state_focused="true" android:state_pressed="true" android:drawable="@drawable/gradient_next_btn" />
+<item android:state_focused="false" android:state_pressed="true" android:drawable="@drawable/gradient_next_btn" />
+<item android:drawable="@drawable/next_button" tools:ignore="ResourceCycle" />
+</selector>

@@ -10,7 +10,7 @@
             android:id="@+id/menu_home"
             app:actionViewClass="android.widget.TextView"
             android:icon="@drawable/ic_home"
-            android:title="Home" />
+            android:title="Khóa học" />
         <item
             android:id="@+id/menu_news"
             app:actionViewClass="android.widget.TextView"
@@ -42,13 +42,13 @@
         <item
             android:id="@+id/menu_setting"
             app:actionViewClass="android.widget.TextView"
-            android:icon="@drawable/ic_saran"
-            android:title="Setting" />
+            android:icon="@drawable/ic_settings"
+            android:title="Cài đặt" />
         <item
             android:id="@+id/menu_about"
             app:actionViewClass="android.widget.TextView"
             android:icon="@drawable/ic_about"
-            android:title="About" />
+            android:title="Thông tin ứng dụng" />
         <item
             android:id="@+id/menu_logout"
             app:actionViewClass="android.widget.TextView"

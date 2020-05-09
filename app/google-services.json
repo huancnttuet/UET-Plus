@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "839021388049",
+    "firebase_url": "https://uet-plus.firebaseio.com",
+    "project_id": "uet-plus",
+    "storage_bucket": "uet-plus.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839021388049:android:dc995f526fb2a13601acb0",
+        "android_client_info": {
+          "package_name": "com.uetplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "839021388049-sdbnt163epjvj174pglrotgk7tnsphsm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoI8iDhr6BNZTqRg2WgltfokmRcFxjVqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "839021388049-sdbnt163epjvj174pglrotgk7tnsphsm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
