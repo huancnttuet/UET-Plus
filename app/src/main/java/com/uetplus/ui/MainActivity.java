@@ -1,5 +1,7 @@
 package com.uetplus.ui;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -35,6 +37,7 @@ import com.uetplus.ui.menu.grades.GradesFragment;
 import com.uetplus.ui.menu.menu_about.AboutFragment;
 import com.uetplus.ui.menu.menu_home.HomeFragment;
 import com.uetplus.ui.menu.news.NewsFragment;
+import com.uetplus.ui.menu.news_notice.NewsNoticeFragment;
 import com.uetplus.ui.menu.timetable.TimeTableFragment;
 import com.uetplus.ui.menu.menu_setting.SettingFragment;
 import com.uetplus.ui.menu_profile.ProfileActivity;
@@ -48,11 +51,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public Toolbar toolbar;
-    private MenuItem menuHome, menuTimeTable, menuSetting, menuAbout, menuLogout, menuExamTime, menuGrades, menuNews;
+    private MenuItem menuHome, menuTimeTable, menuSetting, menuAbout, menuLogout, menuExamTime, menuGrades, menuNews , menuNewsNotice;
     boolean doubleBackToExitPressedOnce = false;
 
     public MainActivity() {
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,8 +109,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             TextView navEmail = headerView.findViewById(R.id.tv_email_header);
             navEmail.setText(username);
-
         }
+
+        if (!isMyServiceRunning()){
+            Intent serviceIntent = new Intent(this,BootReceiver.class);
+            startService(serviceIntent);
+        }
+
     }
 
     /**
@@ -156,6 +165,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.menu_news:
                 fragment = new NewsFragment();
                 break;
+            case R.id.menu_news_notice:
+                fragment = new NewsNoticeFragment();
+                break;
             case R.id.menu_logout:
                 dialogExit();
                 break;
@@ -172,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Hidden Menu Bard For All Fragments
         menuHome = menu.findItem(R.id.menu_home);
         menuNews = menu.findItem(R.id.menu_news);
+        menuNewsNotice = menu.findItem(R.id.menu_news_notice);
         menuTimeTable = menu.findItem(R.id.menu_time_table);
         menuExamTime = menu.findItem(R.id.menu_exam_time);
         menuGrades = menu.findItem(R.id.menu_grades);
@@ -179,11 +192,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         menuAbout = menu.findItem(R.id.menu_about);
         menuLogout = menu.findItem(R.id.menu_logout);
 
-        if(menuHome != null && menuNews != null && menuTimeTable != null && menuExamTime != null && menuGrades != null && menuSetting != null &&
+        if(menuHome != null && menuNews != null && menuNewsNotice != null && menuTimeTable != null && menuExamTime != null && menuGrades != null && menuSetting != null &&
                 menuAbout != null && menuLogout != null )
 
             menuHome.setVisible(false);
             menuNews.setVisible(false);
+            menuNewsNotice.setVisible(false);
             menuTimeTable.setVisible(false);
             menuExamTime.setVisible(false);
             menuGrades.setVisible(false);
@@ -287,4 +301,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             bmImage.setImageBitmap(result);
         }
     }
+
+    private boolean isMyServiceRunning() {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (MyService.class.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }
