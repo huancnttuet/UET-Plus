@@ -13,7 +13,8 @@ public class Rest {
     private static HttpURLConnection 	httpCon = null;
     private static URL 					url;
 
-    private static final String hostURL = "https://flaskapp-postgre.herokuapp.com";
+    private static final String hostURL2 = "https://flaskapp-postgre.herokuapp.com";
+    private static final String hostURL = "https://uetplus.azurewebsites.net";
     private static final String LocalhostURL = "http://192.168.0.13:3000";
 
 
