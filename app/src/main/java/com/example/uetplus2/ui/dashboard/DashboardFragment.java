@@ -21,11 +21,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.uetplus2.R;
 import com.example.uetplus2.api.UetSupportApi;
+import com.example.uetplus2.ui.timeTable.TimeTable;
 import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -35,7 +38,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends Fragment implements View.OnClickListener {
 
     SliderView sliderView;
     private SliderAdapterExample adapter;
@@ -74,6 +77,16 @@ public class DashboardFragment extends Fragment {
         examtime_btn.setClickable(true);
         grades_btn = root.findViewById(R.id.grades_btn);
         grades_btn.setClickable(true);
+
+        CardView cardView_Timetable = (CardView) root.findViewById(R.id.timetable);
+        cardView_Timetable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment, (new TimeTable()));
+                fragmentTransaction.commit();
+            }
+        });
 
         new GetNews(root.getContext()).execute("/getdashboard");
         new GetStudentNews(root.getContext()).execute("/getstudentnews");
@@ -125,6 +138,17 @@ public class DashboardFragment extends Fragment {
         sliderItem.setDescription(description);
         sliderItem.setImageUrl(url);
         adapter.addItem(sliderItem);
+    }
+
+    @Override
+    public void onClick(View v) {
+//        if(v.getId() == R.id.timetable){
+//            Fragment newFragment = new TimeTable();
+//            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//            transaction.replace(R.id.timetable_fragment, newFragment);
+//            transaction.addToBackStack(null);
+//            transaction.commit();
+//        }
     }
 
     private class GetNews extends AsyncTask<String, Void, List<List<String>>> {
