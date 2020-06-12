@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:id="@+id/fragment_grades"
+    >
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        >
+        <EditText
+            android:layout_marginTop="5dp"
+            android:id="@+id/find_input"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:textSize="15dp"
+            android:layout_weight="6"
+            android:background="#FFF"
+            android:hint="Nhập tên môn hoặc mã môn" />
+
+        <Button
+            android:id="@+id/find_btn"
+            android:layout_marginTop="5dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Tìm kiếm"
+            android:textColor="#FFF"
+            android:textSize="10dp" />
+        <Button
+            android:id="@+id/find_all_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Tìm kiếm tất cả"
+            android:textColor="#FFF"
+            android:textSize="9dp" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+        <LinearLayout
+            android:id="@+id/grade_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical"
+            >
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
