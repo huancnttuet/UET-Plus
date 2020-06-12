@@ -48,13 +48,13 @@ public class TimeTableFragment extends Base {
         root = inflater.inflate(R.layout.fragment_time_table, container, false);
 
 //        root.findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-
+        final String mssv = SaveSharedPreference.getCache(getActivity(),"username");
         final SwipeRefreshLayout pullToRefresh = getActivity().findViewById(R.id.pullToRefresh);
         pullToRefresh.setColorSchemeResources(R.color.calendar_today,R.color.colorPrimary,R.color.colorLightRed);
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshData();
+                refreshData(mssv);
                 pullToRefresh.setRefreshing(false);
             }
         });
@@ -67,7 +67,7 @@ public class TimeTableFragment extends Base {
 //            draw(root,list);
             drawTimeTable(list);
         } else {
-           refreshData();
+           refreshData(mssv);
         }
         return root;
     }
@@ -85,7 +85,7 @@ public class TimeTableFragment extends Base {
     }
 
 
-    public void refreshData(){
+    public void refreshData(String mssv){
         new GetTimeTableByMssv(getContext(), new GetTimeTableByMssv.AsyncResponse() {
             @Override
             public void processFinish(List<TimeTable> output) {
@@ -94,13 +94,14 @@ public class TimeTableFragment extends Base {
                     Gson gson = new Gson();
                     String value = gson.toJson(output);
                     SaveSharedPreference.setCache(getActivity(), "timetable", value);
+
                 } else {
                     Log.d("Notify", "Failed");
                     openSortDialog(root, R.layout.dialog_error);
                     return;
                 }
             }
-        }).execute("/schedule/test", "17020781");
+        }).execute("/schedule/test",mssv);
     }
 
     public void openSortDialog(View root, int type ){
