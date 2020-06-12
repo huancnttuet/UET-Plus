@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -32,6 +33,7 @@ import com.google.gson.reflect.TypeToken;
 
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -45,7 +47,7 @@ public class TimeTableFragment extends Base {
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Thời khóa biểu");
         root = inflater.inflate(R.layout.fragment_time_table, container, false);
 
-        root.findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+//        root.findViewById(R.id.loadingPanel).setVisibility(View.GONE);
 
         final SwipeRefreshLayout pullToRefresh = getActivity().findViewById(R.id.pullToRefresh);
         pullToRefresh.setColorSchemeResources(R.color.calendar_today,R.color.colorPrimary,R.color.colorLightRed);
@@ -62,7 +64,8 @@ public class TimeTableFragment extends Base {
             Gson gson = new Gson();
             Type listType = new TypeToken<List<TimeTable>>() {}.getType();
             List<TimeTable> list = gson.fromJson(timetableCache,listType);
-            draw(root,list);
+//            draw(root,list);
+            drawTimeTable(list);
         } else {
            refreshData();
         }
@@ -209,6 +212,33 @@ public class TimeTableFragment extends Base {
             }
         });
     }
+
+    public void drawTimeTable(List<com.example.uetplus2.models.TimeTable>list){
+
+        List<LinearLayout> listWeeks = new ArrayList<>();
+        listWeeks.add((LinearLayout) root.findViewById(R.id.monday));
+        listWeeks.add((LinearLayout) root.findViewById(R.id.tuesday));
+        listWeeks.add((LinearLayout) root.findViewById(R.id.wednesday));
+        listWeeks.add((LinearLayout) root.findViewById(R.id.thursday));
+        listWeeks.add((LinearLayout) root.findViewById(R.id.friday));
+        listWeeks.add((LinearLayout) root.findViewById(R.id.saturday));
+        listWeeks.add((LinearLayout) root.findViewById(R.id.sunday));
+
+        for (int i = 0; i < list.size(); i++) {
+            TextView textView = new TextView(root.getContext());
+            textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            String start = Integer.parseInt(list.get(i).lesson.split("-")[0]) + 6 + "h";
+            String end = Integer.parseInt(list.get(i).lesson.split("-")[1]) + 7 + "h";
+            textView.setText(list.get(i).subject_name + "\n" + start + "-" + end + "\n" + list.get(i).room + "\n" + "Nhóm: " + list.get(i).note);
+            textView.setBackground(ContextCompat.getDrawable(textView.getContext(), R.drawable.border_subjects));
+            textView.setGravity(Gravity.CENTER);
+            int index = Integer.parseInt(list.get(i).day_week) - 2;
+//            setOnClick(textView,i,list);
+            listWeeks.get(index).addView(textView);
+        }
+
+    }
+
     public String convertTime(int lession){
         switch (lession){
             case 1:

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/timetable_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.timeTable.TimeTable"
-    >
+    tools:context=".ui.components.timetable.TimeTableFragment"
+    android:orientation="horizontal">
    <RelativeLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
@@ -30,16 +30,17 @@
                <LinearLayout
                    android:layout_width="100dp"
                    android:layout_height="wrap_content"
-                   android:gravity="center"
                    android:layout_margin="2dp"
+                   android:gravity="center"
                    android:orientation="vertical">
 
                   <TextView
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
+                      android:layout_margin="2dp"
                       android:background="@drawable/border_weekdays"
                       android:gravity="center"
-                      android:padding="5dp"                      android:layout_margin="2dp"
+                      android:padding="5dp"
                       android:text="Thứ 2"
                       android:textStyle="bold"></TextView>
 
@@ -55,16 +56,17 @@
                <LinearLayout
                    android:layout_width="100dp"
                    android:layout_height="wrap_content"
-                   android:gravity="center"
                    android:layout_margin="2dp"
+                   android:gravity="center"
                    android:orientation="vertical">
 
                   <TextView
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
+                      android:layout_margin="2dp"
                       android:background="@drawable/border_weekdays"
                       android:gravity="center"
-                      android:padding="5dp"                      android:layout_margin="2dp"
+                      android:padding="5dp"
                       android:text="Thứ 3"
                       android:textStyle="bold"></TextView>
 
@@ -79,16 +81,17 @@
                <LinearLayout
                    android:layout_width="100dp"
                    android:layout_height="wrap_content"
-                   android:gravity="center"
                    android:layout_margin="2dp"
+                   android:gravity="center"
                    android:orientation="vertical">
 
                   <TextView
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
+                      android:layout_margin="2dp"
                       android:background="@drawable/border_weekdays"
                       android:gravity="center"
-                      android:padding="5dp"                      android:layout_margin="2dp"
+                      android:padding="5dp"
                       android:text="Thứ 4"
                       android:textStyle="bold"></TextView>
 
@@ -103,21 +106,22 @@
                <LinearLayout
                    android:layout_width="100dp"
                    android:layout_height="wrap_content"
-                   android:gravity="center"
                    android:layout_margin="2dp"
+                   android:gravity="center"
                    android:orientation="vertical">
 
                   <TextView
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
+                      android:layout_margin="2dp"
                       android:background="@drawable/border_weekdays"
                       android:gravity="center"
-                      android:padding="5dp"                      android:layout_margin="2dp"
+                      android:padding="5dp"
                       android:text="Thứ 5"
                       android:textStyle="bold"></TextView>
 
                   <LinearLayout
-                      android:id="@+id/thusday"
+                      android:id="@+id/thursday"
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
                       android:gravity="center_horizontal"
@@ -127,16 +131,17 @@
                <LinearLayout
                    android:layout_width="100dp"
                    android:layout_height="wrap_content"
-                   android:gravity="center"
                    android:layout_margin="2dp"
+                   android:gravity="center"
                    android:orientation="vertical">
 
                   <TextView
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
+                      android:layout_margin="2dp"
                       android:background="@drawable/border_weekdays"
                       android:gravity="center"
-                      android:padding="5dp"                      android:layout_margin="2dp"
+                      android:padding="5dp"
                       android:text="Thứ 6"
                       android:textStyle="bold"></TextView>
 
@@ -151,17 +156,17 @@
                <LinearLayout
                    android:layout_width="100dp"
                    android:layout_height="wrap_content"
-                   android:gravity="center"
                    android:layout_margin="2dp"
+                   android:gravity="center"
                    android:orientation="vertical">
 
                   <TextView
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
+                      android:layout_margin="2dp"
                       android:background="@drawable/border_weekdays"
                       android:gravity="center"
                       android:padding="5dp"
-                      android:layout_margin="2dp"
                       android:text="Thứ 7"
                       android:textStyle="bold"></TextView>
 
@@ -176,17 +181,17 @@
                <LinearLayout
                    android:layout_width="100dp"
                    android:layout_height="wrap_content"
-                   android:gravity="center"
                    android:layout_margin="2dp"
+                   android:gravity="center"
                    android:orientation="vertical">
 
                   <TextView
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
+                      android:layout_margin="2dp"
                       android:background="@drawable/border_weekdays"
                       android:gravity="center"
                       android:padding="5dp"
-                      android:layout_margin="2dp"
                       android:text="chủ nhật"
                       android:textStyle="bold"></TextView>
 
@@ -218,4 +223,4 @@
        />
 
 
-</RelativeLayout>
+</LinearLayout>
