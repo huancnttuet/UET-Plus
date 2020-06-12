@@ -1,8 +1,10 @@
-package com.example.uetplus2.api;
+package com.example.uetplus2.services;
 
 
 import android.util.Log;
 
+import com.example.uetplus2.api.LoginRest;
+import com.example.uetplus2.api.SupportRest;
 import com.example.uetplus2.models.GradesModel;
 import com.example.uetplus2.models.Information;
 import com.example.uetplus2.models.TimeTable;

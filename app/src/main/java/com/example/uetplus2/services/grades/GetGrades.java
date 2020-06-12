@@ -5,9 +5,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.uetplus2.api.ServicesApi;
+import com.example.uetplus2.services.ServicesApi;
 import com.example.uetplus2.models.GradesModel;
-import com.example.uetplus2.models.Information;
 
 
 public class GetGrades extends AsyncTask<String, Void, GradesModel> {

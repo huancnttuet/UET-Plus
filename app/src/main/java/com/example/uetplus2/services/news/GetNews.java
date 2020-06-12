@@ -5,7 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.uetplus2.api.ServicesApi;
+import com.example.uetplus2.services.ServicesApi;
 
 import java.util.List;
 
