@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.components.timetable.TimeTableFragment"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@color/white"
+    >
    <RelativeLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
