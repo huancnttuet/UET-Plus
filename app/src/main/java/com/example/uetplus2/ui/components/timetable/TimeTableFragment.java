@@ -90,7 +90,8 @@ public class TimeTableFragment extends Base {
             @Override
             public void processFinish(List<TimeTable> output) {
                 if (output != null) {
-                    draw(root, output);
+//                    draw(root, output);
+                    drawTimeTable(output);
                     Gson gson = new Gson();
                     String value = gson.toJson(output);
                     SaveSharedPreference.setCache(getActivity(), "timetable", value);
