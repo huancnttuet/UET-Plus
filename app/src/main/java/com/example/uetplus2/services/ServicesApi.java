@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.uetplus2.api.LoginRest;
 import com.example.uetplus2.api.SupportRest;
+import com.example.uetplus2.models.ExamTimeModel;
 import com.example.uetplus2.models.GradesModel;
 import com.example.uetplus2.models.Information;
 import com.example.uetplus2.models.TimeTable;
@@ -24,7 +25,7 @@ public class ServicesApi {
         return new Gson().fromJson(json, collectionType);
     }
     //////////////////////////////////////////////////////////////////////////////////
-    public static List<TimeTable> get(String call,String mssv) {
+    public static List<TimeTable> getTimeTableByMssv(String call,String mssv) {
         String json = SupportRest.get(call + "?mssv=" + mssv);
         Log.v("TimeTable", "JSON RESULT : " + json);
         Type objType = new TypeToken<List<TimeTable>>(){}.getType();
@@ -51,6 +52,14 @@ public class ServicesApi {
         String json = SupportRest.get("/score" + call);
         Log.v("Grades", "JSON RESULT : " + json);
         Type objType = new TypeToken<GradesModel>(){}.getType();
+
+        return new Gson().fromJson(json, objType);
+    }
+
+    public static List<ExamTimeModel> getExamtimeByMssv(String mssv){
+        String json = SupportRest.get("/exam-time?mssv=" + mssv);
+        Log.v("Examtime", "JSON RESULT : " + json);
+        Type objType = new TypeToken<List<ExamTimeModel>>(){}.getType();
 
         return new Gson().fromJson(json, objType);
     }

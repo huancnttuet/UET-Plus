@@ -27,6 +27,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.uetplus2.MainActivity;
 import com.example.uetplus2.R;
+import com.example.uetplus2.cache.SaveSharedPreference;
+import com.example.uetplus2.models.ExamTimeModel;
+import com.example.uetplus2.services.examtime.GetExamtimeByMssv;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -46,10 +49,15 @@ import java.util.List;
 
 public class ExamTimeFragment extends Fragment {
 
+    Calendar cal_start = Calendar.getInstance();
+    Calendar cal_end = Calendar.getInstance();
+
     List<String> subjectnames =  new ArrayList<String>();
     List<String> listday =  new ArrayList<String>();
     List<String> listmonth =  new ArrayList<String>();
     List<String> listyear =  new ArrayList<String>();
+
+    List<ExamTimeModel> ExamTimeAllList ;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -78,45 +86,73 @@ public class ExamTimeFragment extends Fragment {
             }
         });
 
-//        String examtimeCache = SaveSharedPreference.getCache(getActivity(),"examtime");
-//        if(examtimeCache.length() != 0){
-//            Gson gson = new Gson();
-//            Type listType = new TypeToken<List<List<String>>>() {}.getType();
-//            List<List<String>> list = gson.fromJson(examtimeCache,listType);
-//            root.findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-//            showListExamTime(list, root);
-//            showCalendarExamTime(list, root);
-//        } else{
-//            String mssv = SaveSharedPreference.getUserName(getActivity());
-//
-//            Router service = Api.getRetrofitInstance().create(Router.class);
-//            Call<List<List<String>>> call = service.getExamTime(mssv);
-//            call.enqueue(new Callback<List<List<String>>>() {
-//                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-//                @Override
-//                public void onResponse(Call<List<List<String>>> call, Response<List<List<String>>> response) {
-//                    root.findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-//                    Log.d("Notify", "Success");
-//                    final List<List<String>> List_All_Exam_Time = response.body();
-//                    if(List_All_Exam_Time == null || List_All_Exam_Time.size() == 0){
-//                        openSortDialog(root, R.layout.dialog_error);
-//                        return;
-//                    } else {
-//                        showListExamTime(List_All_Exam_Time, root);
-//                        showCalendarExamTime(List_All_Exam_Time, root);
-//                        Gson gson = new Gson();
-//                        String value = gson.toJson(List_All_Exam_Time);
-//                        SaveSharedPreference.setCache(getActivity(),"examtime",value);
-//                    }
-//                }
-//                @Override
-//                public void onFailure(Call<List<List<String>>> call, Throwable t) {
-//                    Log.d("Notify", "Failed");
-//                    openSortDialog(root, R.layout.dialog_error);
-//                }
-//            });
-//        }
 
+
+
+        String examtimeCache = SaveSharedPreference.getCache(getActivity(),"examtime");
+        if(examtimeCache.length() != 0){
+            Gson gson = new Gson();
+            Type listType = new TypeToken<List<ExamTimeModel>>() {}.getType();
+            ExamTimeAllList = gson.fromJson(examtimeCache,listType);
+            showListExamTime(ExamTimeAllList, root);
+            showCalendarExamTime(ExamTimeAllList, root);
+        } else{
+            String mssv = SaveSharedPreference.getUserName(getActivity());
+            new GetExamtimeByMssv(getContext(), new GetExamtimeByMssv.AsyncResponse() {
+                @Override
+                public void processFinish(List<ExamTimeModel> output) {
+                    if(output == null || output.size() == 0){
+                        openSortDialog(root, R.layout.dialog_error);
+                        return;
+                    } else {
+                        ExamTimeAllList = output;
+                        showListExamTime(output, root);
+                        showCalendarExamTime(output, root);
+                        Gson gson = new Gson();
+                        String value = gson.toJson(output);
+                        SaveSharedPreference.setCache(getActivity(),"examtime",value);
+                    }
+                }
+            }).execute(mssv);
+        }
+
+        GridLayout calendarGrid = root.findViewById(R.id.calendar);
+        calendarGrid.setOnTouchListener(new OnSwipeTouchListener(getActivity()){
+            public void onSwipeTop() {
+                Toast.makeText(getActivity(), "top", Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeLeft() {
+                int now = cal_start.get(Calendar.MONTH);
+                int now_year = cal_start.get(Calendar.YEAR);
+                if(now == 11){
+                    now = 0;
+                    now_year++;
+                } else {
+                    now++;
+                }
+                cal_start.set(Calendar.MONTH, now);
+                cal_start.set(Calendar.YEAR, now_year);
+                drawCalendarMonthly(root,cal_start, ExamTimeAllList);
+                Toast.makeText(getActivity(), "right", Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeRight() {
+                int now = cal_start.get(Calendar.MONTH);
+                int now_year = cal_start.get(Calendar.YEAR);
+                if(now == 0){
+                    now = 11;
+                    now_year--;
+                } else {
+                    now--;
+                }
+                cal_start.set(Calendar.MONTH, now);
+                cal_start.set(Calendar.YEAR, now_year);
+                drawCalendarMonthly(root,cal_start, ExamTimeAllList);
+                Toast.makeText(getActivity(), "left", Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeBottom() {
+                Toast.makeText(getActivity(), "bottom", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return root;
     }
@@ -160,7 +196,7 @@ public class ExamTimeFragment extends Fragment {
     }
 
 
-    public void openDialog(List<String> subject, View v) {
+    public void openDialog(ExamTimeModel subject, View v) {
         final Dialog dialog = new Dialog(v.getContext());
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -173,12 +209,12 @@ public class ExamTimeFragment extends Fragment {
         type_exam = dialog.findViewById(R.id.type_exam);
         exam_time = dialog.findViewById(R.id.exam_time);
         classroom = dialog.findViewById(R.id.classroom);
-        subject_name.setText(subject.get(7));
-        subject_code.setText(subject.get(6));
-        SBD.setText("SBD : " + subject.get(5));
-        type_exam.setText("Hình thức thi : " + subject.get(13));
-        exam_time.setText("Thời gian thi : " + subject.get(9) +" " + subject.get(8));
-        classroom.setText("Địa điểm: " + subject.get(11));
+        subject_name.setText(subject.course_name);
+        subject_code.setText(subject.course_code);
+        SBD.setText("SBD : " + subject.sbd);
+        type_exam.setText("Hình thức thi : " + subject.note);
+        exam_time.setText("Thời gian thi : " + subject.time +" " + subject.day);
+        classroom.setText("Địa điểm: " + subject.place);
         dialog.show();
         Button exit_btn = dialog.findViewById(R.id.exit_btn);
         exit_btn.setOnClickListener(new View.OnClickListener() {
@@ -190,7 +226,7 @@ public class ExamTimeFragment extends Fragment {
     }
 
 
-    public void showListExamTime(List<List<String>> List_All_Exam_Time, View v){
+    public void showListExamTime(List<ExamTimeModel> List_All_Exam_Time, View v){
         LinearLayout listViewLayout = v.findViewById(R.id.list_view_layout);
         CardView[] cardViews = new CardView[List_All_Exam_Time.size()];
         LinearLayout[] linearLayouts = new LinearLayout[List_All_Exam_Time.size()];
@@ -215,22 +251,22 @@ public class ExamTimeFragment extends Fragment {
             TextView sbd = new TextView(v.getContext());
 
             subjectName.setTextSize(TypedValue.COMPLEX_UNIT_DIP,18);
-            subjectName.setText(List_All_Exam_Time.get(i).get(7));
-            examTime.setText("Địa điểm : "+List_All_Exam_Time.get(i).get(11));
+            subjectName.setText(List_All_Exam_Time.get(i).course_name);
+            examTime.setText("Địa điểm : "+List_All_Exam_Time.get(i).place);
             examTime.setTextSize(TypedValue.COMPLEX_UNIT_DIP,12);
-            sbd.setText("SBD : " + List_All_Exam_Time.get(i).get(5) + "        " + List_All_Exam_Time.get(i).get(9) + " - " + List_All_Exam_Time.get(i).get(8));
+            sbd.setText("SBD : " + List_All_Exam_Time.get(i).sbd + "        " + List_All_Exam_Time.get(i).time + " - " + List_All_Exam_Time.get(i).day);
             sbd.setTextSize(TypedValue.COMPLEX_UNIT_DIP,12);
             linearLayouts[i].addView(subjectName);
             linearLayouts[i].addView(sbd);
             linearLayouts[i].addView(examTime);
             cardViews[i].addView(linearLayouts[i]);
             listViewLayout.addView(cardViews[i]);
-            final int finalJ = i;
-            final List<List<String>> examTimeList = List_All_Exam_Time;
+
+            final ExamTimeModel examtimeM = List_All_Exam_Time.get(i);
             cardViews[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    openDialog(examTimeList.get(finalJ), v);
+                    openDialog(examtimeM, v);
                 }
             });
 
@@ -240,22 +276,22 @@ public class ExamTimeFragment extends Fragment {
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void showCalendarExamTime(final List<List<String>> List_All_Exam_Time, final View root){
+    public void showCalendarExamTime(final List<ExamTimeModel> List_All_Exam_Time, final View root){
         String sn;
         String d,m,y;
-        for(List<String> r : List_All_Exam_Time){
-            sn = r.get(7);
-            d = r.get(8).split("/")[0];
-            m =r.get(8).split("/")[1];
-            y =r.get(8).split("/")[2];
+        for(ExamTimeModel r : List_All_Exam_Time){
+            sn = r.course_name;
+            d = r.day.split("/")[0];
+            m =r.day.split("/")[1];
+            y =r.day.split("/")[2];
             subjectnames.add(sn);
             listday.add(d);
             listmonth.add(m);
             listyear.add(y);
         }
 
-        final Calendar cal_start = Calendar.getInstance();
-        Calendar cal_end = Calendar.getInstance();
+
+
         cal_start.set(Calendar.YEAR, Integer.parseInt(listyear.get(0)));
         cal_start.set(Calendar.MONTH, Integer.parseInt(listmonth.get(0)) - 1);
         cal_start.set(Calendar.DAY_OF_MONTH, Integer.parseInt(listday.get(0)));
@@ -309,7 +345,7 @@ public class ExamTimeFragment extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void drawCalendarMonthly(View root, Calendar calendarMonthly , List<List<String>> List_All_Exam_Time){
+    public void drawCalendarMonthly(View root, Calendar calendarMonthly , List<ExamTimeModel> List_All_Exam_Time){
         String[] days;
         int[] months = {31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
         int beginOfMonth = 0;
@@ -442,13 +478,12 @@ public class ExamTimeFragment extends Fragment {
                             t.setText(subjectnames.get(j));
                             t.setTextSize(TypedValue.COMPLEX_UNIT_DIP,6);
                             boxs[i].addView(t);
-                            final int finalJ = j;
-                            final List<List<String>> listExamTime = List_All_Exam_Time;
+                            final ExamTimeModel  exTime = List_All_Exam_Time.get(j);
                             cardViews[i].setCardBackgroundColor(Color.CYAN);
                             cardViews[i].setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    openDialog(listExamTime.get(finalJ), v);
+                                    openDialog(exTime, v);
                                 }
                             });
                         }

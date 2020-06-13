@@ -1,9 +1,10 @@
 package com.example.uetplus2.models;
 
-public class ExamTime {
+public class ExamTimeModel {
     public String id;
     public String student_code;
     public String student_name;
+    public String dob;
     public String class_name;
     public String sbd;
     public String course_code;

@@ -157,6 +157,7 @@
             android:alignmentMode="alignMargins"
             android:columnOrderPreserved="false"
             android:padding="14dp"
+            android:layout_marginBottom="60dp"
             >
             <!--        row2-->
 <!--            <LinearLayout-->
@@ -373,15 +374,15 @@
         android:orientation="vertical"
         >
     </LinearLayout>
-    <RelativeLayout
-        android:id="@+id/loadingPanel"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center" >
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/loadingPanel"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:gravity="center" >-->
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="true" />
-    </RelativeLayout>
+<!--        <ProgressBar-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:indeterminate="true" />-->
+<!--    </RelativeLayout>-->
 </LinearLayout>
