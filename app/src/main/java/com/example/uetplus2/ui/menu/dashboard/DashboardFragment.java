@@ -109,7 +109,7 @@ public class DashboardFragment extends Base {
             public void onClick(View v) {
                 Fragment fragment = new GradesFragment();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.nav_host_fragment, fragment,"GRADES_TAG");
+                transaction.replace(R.id.nav_host_fragment, new GradesFragment());
                 transaction.addToBackStack("GRADES_TAG");
                 transaction.commit();
             }

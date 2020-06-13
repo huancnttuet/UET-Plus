@@ -13,9 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,17 +25,21 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 
 import com.example.uetplus2.MainActivity;
 import com.example.uetplus2.R;
 import com.example.uetplus2.models.GradesModel;
 import com.example.uetplus2.services.grades.GetGrades;
+import com.example.uetplus2.ui.components.PDFView.PDF;
 
 import java.util.List;
 
 
-public class GradesFragment extends Fragment {
+public class GradesFragment extends Fragment implements AdapterView.OnItemClickListener {
+
+    public List<List<String>>  list_all_grades;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,7 +49,6 @@ public class GradesFragment extends Fragment {
         final EditText find_input = root.findViewById(R.id.find_input);
         Button find_all_btn = root.findViewById(R.id.find_all_btn);
         Button find_btn = root.findViewById(R.id.find_btn);
-
 
 
         find_btn.setOnClickListener(new View.OnClickListener() {
@@ -66,33 +71,13 @@ public class GradesFragment extends Fragment {
                     @Override
                     public void processFinish(GradesModel output) {
                         if(output != null){
-                            draw(output.subject_list,root);
+                            list_all_grades = output.subject_list;
+                            drawGrades(output.subject_list,root);
                         }else  {
                             showSortDialog(root,R.layout.dialog_message);
                         }
                     }
                 }).execute("/search?input="+ input + "&term=76");
-//                Router service = Api.getRetrofitInstance().create(Router.class);
-//                Call<List<List<List<String>>>> call = service.searchGrades(input,76,0);
-//                call.enqueue(new Callback<List<List<List<String>>>>() {
-//                    @Override
-//                    public void onResponse(Call<List<List<List<String>>>> call, Response<List<List<List<String>>>> response) {
-//                        Log.d("Notify", "Success");
-//                        root.findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-//                        List<List<List<String>>> result = response.body();
-//                        if(result.size() == 0){
-//                            showSortDialog(root,R.layout.dialog_message);
-//                        }
-//                        draw(result.get(0),root);
-//                    }
-//                    @Override
-//                    public void onFailure(Call<List<List<List<String>>>> call, Throwable t) {
-//                        Log.d("Notify", "Failed");
-//                        showSortDialog(root,R.layout.dialog_error);
-//
-//                    }
-//                });
-
             }
         });
 
@@ -100,113 +85,100 @@ public class GradesFragment extends Fragment {
         find_all_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 new GetGrades(getContext(), new GetGrades.AsyncResponse() {
                     @Override
                     public void processFinish(GradesModel output) {
                         if(output != null){
-                            draw(output.subject_list,root);
+                            list_all_grades = output.subject_list;
+                            drawGrades(output.subject_list,root);
                         }else  {
                             showSortDialog(root,R.layout.dialog_message);
                         }
                     }
                 }).execute("?term=76");
-//                Router service = Api.getRetrofitInstance().create(Router.class);
-//                Call<List<List<String>>> call = service.getScore(76);
-//                call.enqueue(new Callback<List<List<String>>>() {
-//                    @Override
-//                    public void onResponse(Call<List<List<String>>> call, Response<List<List<String>>> response) {
-//                        Log.d("Notify", "Success");
-//                        root.findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-//                        List<List<String>> result = response.body();
-//                        if(result == null || result.size() == 0){
-//                            showSortDialog(root,R.layout.dialog_error);
-//                            return;
-//                        }
-//                        draw(result,root);
-//                    }
-//                    @Override
-//                    public void onFailure(Call<List<List<String>>> call, Throwable t) {
-//                        Log.d("Notify", "Failed");
-//                        showSortDialog(root,R.layout.dialog_error);
-//                    }
-//                });
             }
         });
 
         return root;
     }
 
-
-
-    public void draw(final List<List<String>>  result, View v ){
-        LinearLayout grade_list_layout = v.findViewById(R.id.grade_list);
-        grade_list_layout.removeAllViews();
-
-        CardView[] cardViews = new CardView[result.size()];
-        LinearLayout[] layouts = new LinearLayout[result.size()];
-        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,180);
-        TextView[] textViews1 = new TextView[result.size()];
-        TextView[] textViews2 = new TextView[result.size()];
-        TextView[] textViews3 = new TextView[result.size()];
-        final String[] urlPdfs = new String[result.size()];
-
-        param.setMargins(10,10,10,10);
-        for(int i = 0 ; i < result.size(); ++i) {
-            cardViews[i] = new CardView(v.getContext());
-            cardViews[i].setLayoutParams(param);
-            cardViews[i].setRadius(10);
-            cardViews[i].setCardElevation(10);
-
-            layouts[i] = new LinearLayout(v.getContext());
-            layouts[i].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            layouts[i].setOrientation(LinearLayout.VERTICAL);
-            layouts[i].setPadding(10,10,10,10);
-            textViews1[i] = new TextView(v.getContext());
-            textViews1[i].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            textViews1[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 19);
-            textViews1[i].setText(result.get(i).get(0));
-
-            textViews2[i] = new TextView(v.getContext());
-            textViews2[i].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            textViews2[i].setText(result.get(i).get(1));
-            textViews2[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
-
-            textViews3[i] = new TextView(v.getContext());
-            textViews3[i].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            textViews3[i].setText(result.get(i).get(3));
-            textViews3[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
-
-            layouts[i].addView(textViews1[i]);
-            layouts[i].addView(textViews2[i]);
-            layouts[i].addView(textViews3[i]);
-
-            cardViews[i].addView(layouts[i]);
-
-            grade_list_layout.addView(cardViews[i]);
-            urlPdfs[i] = "http://112.137.129.30/viewgrade/"+ result.get(i).get(2);
-
-            final int finalI = i;
-            cardViews[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Fragment fragment = new PDFViewerFragment();
-                    Bundle arguments = new Bundle();
-                    arguments.putString( "urlPdf" , urlPdfs[finalI]);
-                    arguments.putString("subjectName", result.get(finalI).get(0));
-                    fragment.setArguments(arguments);
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .add(R.id.fragment_grades, fragment)
-                            .addToBackStack("grades")
-                            .commit();
-
-                }
-            });
-
-        }
+    public void drawGrades(final List<List<String>>  result, View v){
+        ListView listGrades = (ListView) v.findViewById(R.id.grade_list);
+        GradesAdapter gradesAdapter = new GradesAdapter(v.getContext(),result);
+        listGrades.setAdapter(gradesAdapter);
+        listGrades.setOnItemClickListener(this);
     }
+
+
+
+//    public void draw(final List<List<String>>  result, View v ){
+//        LinearLayout grade_list_layout = v.findViewById(R.id.grade_list);
+//        grade_list_layout.removeAllViews();
+//
+//        CardView[] cardViews = new CardView[result.size()];
+//        LinearLayout[] layouts = new LinearLayout[result.size()];
+//        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,180);
+//        TextView[] textViews1 = new TextView[result.size()];
+//        TextView[] textViews2 = new TextView[result.size()];
+//        TextView[] textViews3 = new TextView[result.size()];
+//        final String[] urlPdfs = new String[result.size()];
+//
+//        param.setMargins(10,10,10,10);
+//        for(int i = 0 ; i < result.size(); ++i) {
+//            cardViews[i] = new CardView(v.getContext());
+//            cardViews[i].setLayoutParams(param);
+//            cardViews[i].setRadius(10);
+//            cardViews[i].setCardElevation(10);
+//
+//            layouts[i] = new LinearLayout(v.getContext());
+//            layouts[i].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+//            layouts[i].setOrientation(LinearLayout.VERTICAL);
+//            layouts[i].setPadding(10,10,10,10);
+//            textViews1[i] = new TextView(v.getContext());
+//            textViews1[i].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+//            textViews1[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 19);
+//            textViews1[i].setText(result.get(i).get(0));
+//
+//            textViews2[i] = new TextView(v.getContext());
+//            textViews2[i].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+//            textViews2[i].setText(result.get(i).get(1));
+//            textViews2[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
+//
+//            textViews3[i] = new TextView(v.getContext());
+//            textViews3[i].setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+//            textViews3[i].setText(result.get(i).get(3));
+//            textViews3[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
+//
+//            layouts[i].addView(textViews1[i]);
+//            layouts[i].addView(textViews2[i]);
+//            layouts[i].addView(textViews3[i]);
+//
+//            cardViews[i].addView(layouts[i]);
+//
+//            grade_list_layout.addView(cardViews[i]);
+//            urlPdfs[i] = "http://112.137.129.30/viewgrade/"+ result.get(i).get(2);
+//
+//            final int finalI = i;
+//            cardViews[i].setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                    Fragment fragment = new PDFViewerFragment();
+//                    Bundle arguments = new Bundle();
+//                    arguments.putString( "urlPdf" , urlPdfs[finalI]);
+//                    arguments.putString("subjectName", result.get(finalI).get(0));
+//                    fragment.setArguments(arguments);
+//                    FragmentManager fragmentManager = getFragmentManager();
+//                    fragmentManager.beginTransaction()
+//                            .add(R.id.fragment_grades, fragment)
+//                            .addToBackStack("grades")
+//                            .commit();
+//
+//                }
+//            });
+//
+//        }
+//    }
 
     public void showSortDialog(View v, int type){
 
@@ -224,4 +196,12 @@ public class GradesFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+       List<String> grade = list_all_grades.get(position);
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.nav_host_fragment, new PDF(grade.get(2)));
+        transaction.addToBackStack("PDF");
+        transaction.commit();
+    }
 }

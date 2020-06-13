@@ -121,65 +121,66 @@ public class TimeTableFragment extends Base {
         });
     }
 
-    public void draw(View root, List<TimeTable> List_All_Subject){
-        LinearLayout mon = root.findViewById(R.id.monday);
-        LinearLayout tue = root.findViewById(R.id.tuesday);
-        LinearLayout wed = root.findViewById(R.id.wednesday);
-        LinearLayout thu = root.findViewById(R.id.thursday);
-        LinearLayout fri = root.findViewById(R.id.friday);
-        LinearLayout sat = root.findViewById(R.id.saturday);
-        LinearLayout sun = root.findViewById(R.id.sunday);
-        mon.removeAllViews();
-        tue.removeAllViews();
-        wed.removeAllViews();
-        thu.removeAllViews();
-        fri.removeAllViews();
-        sat.removeAllViews();
-        sun.removeAllViews();
-        Button[] list_button = new Button[50];
-        int k = 0;
-        for(TimeTable subject : List_All_Subject){
+//    public void draw(View root, List<TimeTable> List_All_Subject){
+//        LinearLayout mon = root.findViewById(R.id.monday);
+//        LinearLayout tue = root.findViewById(R.id.tuesday);
+//        LinearLayout wed = root.findViewById(R.id.wednesday);
+//        LinearLayout thu = root.findViewById(R.id.thursday);
+//        LinearLayout fri = root.findViewById(R.id.friday);
+//        LinearLayout sat = root.findViewById(R.id.saturday);
+//        LinearLayout sun = root.findViewById(R.id.sunday);
+//        mon.removeAllViews();
+//        tue.removeAllViews();
+//        wed.removeAllViews();
+//        thu.removeAllViews();
+//        fri.removeAllViews();
+//        sat.removeAllViews();
+//        sun.removeAllViews();
+//        Button[] list_button = new Button[50];
+//        int k = 0;
+//        for(TimeTable subject : List_All_Subject){
+//
+//            list_button[k]= new Button(getContext());
+//            list_button[k].setId(k);
+//            list_button[k].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 9);
+//            list_button[k].setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
+//            list_button[k].setText(subject.getSubject_name());
+//            if(subject.getDay_week().equals("2")){
+//                mon.addView(list_button[k]);
+//            }
+//            if(subject.getDay_week().equals("3")){
+//                tue.addView(list_button[k]);
+//            }
+//            if(subject.getDay_week().equals("4")){
+//                wed.addView(list_button[k]);
+//            }
+//            if(subject.getDay_week().equals("5")){
+//                thu.addView(list_button[k]);
+//            }
+//            if(subject.getDay_week().equals("6")){
+//                fri.addView(list_button[k]);
+//            }
+//            if(subject.getDay_week().equals("7")){
+//                sat.addView(list_button[k]);
+//            }
+//            if(subject.getDay_week().equals("CN")){
+//                sun.addView(list_button[k]);
+//            }
+//            k++;
+//        }
+//
+//        for(int i=0; i < k;i++){
+//            setOnClick(list_button[i], List_All_Subject);
+//        }
+//    }
 
-            list_button[k]= new Button(getContext());
-            list_button[k].setId(k);
-            list_button[k].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 9);
-            list_button[k].setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
-            list_button[k].setText(subject.getSubject_name());
-            if(subject.getDay_week().equals("2")){
-                mon.addView(list_button[k]);
-            }
-            if(subject.getDay_week().equals("3")){
-                tue.addView(list_button[k]);
-            }
-            if(subject.getDay_week().equals("4")){
-                wed.addView(list_button[k]);
-            }
-            if(subject.getDay_week().equals("5")){
-                thu.addView(list_button[k]);
-            }
-            if(subject.getDay_week().equals("6")){
-                fri.addView(list_button[k]);
-            }
-            if(subject.getDay_week().equals("7")){
-                sat.addView(list_button[k]);
-            }
-            if(subject.getDay_week().equals("CN")){
-                sun.addView(list_button[k]);
-            }
-            k++;
-        }
-
-        for(int i=0; i < k;i++){
-            setOnClick(list_button[i], List_All_Subject);
-        }
-    }
-
-    public void setOnClick(Button btn, final List<TimeTable> l){
+    public void setOnClick(TextView btn, final List<TimeTable> l, final int i){
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("click", String.valueOf(v.getId()));
-                TimeTable subject = l.get(v.getId());
+//                Log.v("click", String.valueOf(v.getId()));
+                TimeTable subject = l.get(i);
+//                Log.d("subject: ",subject.subject_name);
                 openDialog(subject);
             }
         });
@@ -215,7 +216,7 @@ public class TimeTableFragment extends Base {
         });
     }
 
-    public void drawTimeTable(List<com.example.uetplus2.models.TimeTable>list){
+    public void drawTimeTable(List<TimeTable>list){
 
         List<LinearLayout> listWeeks = new ArrayList<>();
         listWeeks.add((LinearLayout) root.findViewById(R.id.monday));
@@ -239,7 +240,7 @@ public class TimeTableFragment extends Base {
             textView.setBackground(ContextCompat.getDrawable(textView.getContext(), R.drawable.border_subjects));
             textView.setGravity(Gravity.CENTER);
             int index = Integer.parseInt(list.get(i).day_week) - 2;
-//            setOnClick(textView,i,list);
+            setOnClick(textView,list, i);
             listWeeks.get(index).addView(textView);
         }
 
