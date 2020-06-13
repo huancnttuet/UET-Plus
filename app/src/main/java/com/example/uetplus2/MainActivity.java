@@ -16,7 +16,10 @@ import com.example.uetplus2.ui.menu.dashboard.DashboardFragment;
 import com.example.uetplus2.ui.menu.home.HomeFragment;
 import com.example.uetplus2.ui.menu.notifications.NotificationsFragment;
 import com.example.uetplus2.ui.menu.profile.ProfileFragment;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,6 +48,15 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_main);
             BottomNavigationView navView = findViewById(R.id.nav_view);
 //        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+            FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this, new OnSuccessListener<InstanceIdResult>() {
+                @Override
+                public void onSuccess(InstanceIdResult instanceIdResult) {
+                    String token = instanceIdResult.getToken();
+                    Log.i("FCM Token", token);
+
+                }
+            });
 
 
             CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navView.getLayoutParams();
