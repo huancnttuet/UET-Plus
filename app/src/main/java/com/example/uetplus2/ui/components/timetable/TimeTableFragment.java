@@ -226,6 +226,10 @@ public class TimeTableFragment extends Base {
         listWeeks.add((LinearLayout) root.findViewById(R.id.saturday));
         listWeeks.add((LinearLayout) root.findViewById(R.id.sunday));
 
+        for(int i = 0; i<listWeeks.size(); i++){
+            listWeeks.get(i).removeAllViews();
+        }
+
         for (int i = 0; i < list.size(); i++) {
             TextView textView = new TextView(root.getContext());
             textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
