@@ -26,6 +26,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 import com.example.uetplus2.MainActivity;
@@ -46,10 +47,16 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemClickL
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Điểm thi");
         final View root = inflater.inflate(R.layout.fragment_grades, container, false);
 
+        final SwipeRefreshLayout pullToRefresh = getActivity().findViewById(R.id.pullToRefresh);
+        pullToRefresh.setRefreshing(false);
+        pullToRefresh.setEnabled(false);
+
         final EditText find_input = root.findViewById(R.id.find_input);
         Button find_all_btn = root.findViewById(R.id.find_all_btn);
         Button find_btn = root.findViewById(R.id.find_btn);
 
+
+        drawGrades(list_all_grades,root);
 
         find_btn.setOnClickListener(new View.OnClickListener() {
             @Override

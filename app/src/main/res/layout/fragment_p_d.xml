@@ -5,17 +5,16 @@
     android:layout_height="match_parent"
     android:background="#ffff"
     tools:context=".ui.components.PDFView.PDF">
-    <Button
-        android:id="@+id/btn_viewPDF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Click here to show grade board" />
+<!--    <Button-->
+<!--        android:id="@+id/btn_viewPDF"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Click here to show grade board" />-->
 
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdfView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/btn_viewPDF"
         android:layout_marginTop="1dp">
 
     </com.github.barteksc.pdfviewer.PDFView>

@@ -24,7 +24,6 @@ public class PDF extends Fragment {
     private Context mContext;
     View root;
     PDFView scorePDF;
-    Button btn;
 
     private static final int REQUEST = 112;
 
@@ -39,17 +38,7 @@ public class PDF extends Fragment {
         mContext = root.getContext();
 
         scorePDF = (PDFView) root.findViewById(R.id.pdfView);
-        btn = (Button) root.findViewById(R.id.btn_viewPDF);
         DownloadPDFfromURL();
-
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ViewPDF();
-            }
-        });
-
 
         return root;
     }
@@ -59,15 +48,4 @@ public class PDF extends Fragment {
                 .execute("http://112.137.129.30/viewgrade/"+url, "downPDF.pdf");
 
     }
-
-    public void ViewPDF() {
-        File pdfFile = new File(root.getContext().getExternalCacheDir().toString() + "/PDFDOWNLOAD/" + "downPDF.pdf");
-        Log.d("notify: ", pdfFile.getPath());
-
-        Uri path = Uri.fromFile(pdfFile);
-
-        scorePDF.fromFile(pdfFile).load();
-
-    }
-
 }

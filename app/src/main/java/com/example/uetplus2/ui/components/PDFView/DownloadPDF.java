@@ -15,9 +15,18 @@ import java.io.IOException;
 public class DownloadPDF extends AsyncTask<String, Void, Void> {
 
     Context ctx;
+    protected ProgressDialog dialog;
 
     public DownloadPDF(Context ctx){
         this.ctx = ctx;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        this.dialog = new ProgressDialog(ctx, 3);
+        this.dialog.setMessage("Đang tải");
+        this.dialog.show();
     }
 
     @Override
@@ -54,7 +63,7 @@ public class DownloadPDF extends AsyncTask<String, Void, Void> {
 
 
         //File downloader class
-        FileDownLoader.downloadFile(fileUrl, pdfFile);
+        FileDownLoader.downloadFile(fileUrl, pdfFile,ctx,dialog);
 
         return null;
     }

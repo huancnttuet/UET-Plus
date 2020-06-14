@@ -1,6 +1,16 @@
 package com.example.uetplus2.ui.components.PDFView;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
+
+import androidx.fragment.app.FragmentActivity;
+
+import com.example.uetplus2.R;
+import com.github.barteksc.pdfviewer.PDFView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,11 +21,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class FileDownLoader  {
+public class FileDownLoader {
 
-    private  static final int MEGABYTE = 1024*1024;
+    private static final int MEGABYTE = 1024 * 1024;
 
-    public static void downloadFile(String fileUrl, File directory){
+    public static void downloadFile(String fileUrl, File directory, Context ctx, Dialog dialog) {
         try {
             // URL Connection
             URL url = new URL(fileUrl);
@@ -43,8 +53,20 @@ public class FileDownLoader  {
 
             fileOutputStream.close();
 
+            //show pdf to context
+            File pdfFile = new File(ctx.getExternalCacheDir().toString() + "/PDFDOWNLOAD/" + "downPDF.pdf");
+            Log.d("notify: ", pdfFile.getPath());
+            if (pdfFile.length() != 0) {
+                PDFView pdfView = ((FragmentActivity) ctx).findViewById(R.id.pdfView);
+                pdfView.fromFile(pdfFile).load();
+                dialog.dismiss();
+            } else {
+                dialog.dismiss();
+                Toast.makeText(ctx, "Có lỗi xảy ra!!!", Toast.LENGTH_LONG).show();
+            }
 
-        } catch (FileNotFoundException e){
+
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -52,5 +74,6 @@ public class FileDownLoader  {
             e.printStackTrace();
         }
     }
+
 
 }
