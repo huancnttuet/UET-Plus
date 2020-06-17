@@ -50,4 +50,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.2.2'
     implementation 'com.google.firebase:firebase-messaging:20.2.0'
 
+
+    //pdf
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 }
