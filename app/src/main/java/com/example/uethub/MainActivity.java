@@ -11,17 +11,15 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
-import android.widget.Button;
 
-import com.example.uethub.R;
-import com.example.uethub.ui.components.grades.GradesFragment;
 import com.example.uethub.ui.menu.dashboard.DashboardFragment;
-import com.example.uethub.ui.menu.home.HomeFragment;
+
 import com.example.uethub.ui.menu.notifications.NotificationsFragment;
 import com.example.uethub.ui.menu.profile.ProfileFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.uetplus.ui.menu.menu_home.HomeFragment;
 import com.wwdablu.soumya.lottiebottomnav.FontBuilder;
 import com.wwdablu.soumya.lottiebottomnav.FontItem;
 import com.wwdablu.soumya.lottiebottomnav.ILottieBottomNavCallback;
