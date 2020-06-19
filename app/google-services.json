@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "407013773521",
+    "firebase_url": "https://uethub-1f1b0.firebaseio.com",
+    "project_id": "uethub-1f1b0",
+    "storage_bucket": "uethub-1f1b0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407013773521:android:902b1705ee68cdbd9335f0",
+        "android_client_info": {
+          "package_name": "com.example.uethub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "407013773521-j36sdsr2o4qvofk2kt9i7bu2rfguone8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoyJljhj5SEtcwI0Dh8lQCVpcLU2T4_HQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "407013773521-j36sdsr2o4qvofk2kt9i7bu2rfguone8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

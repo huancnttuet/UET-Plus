@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">UET HUB</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Thông báo</string>
+    <string name="title_profile">Tôi</string>
+    <string name="version">Version 3.0</string>
+    <string name="password">Mật khẩu</string>
+    <string name="login">Đăng nhập</string>
+    <string name="swipe_left_for_register">Đăng ký</string>
+    <string name="register">Đăng ký</string>
+    <string name="tag">UET Plus</string>
+    <string name="your_name">Tên đăng nhập</string>
+    <string name="e_mail">Email</string>
+    <string name="re_type_password">Nhập lại mật khẩu</string>
+    <string name="swipe_right_for_login">Đăng nhập</string>
+    <string name="title_timetable">Timetable</string>
+
+</resources>
