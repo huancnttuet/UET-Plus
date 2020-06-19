@@ -14,12 +14,13 @@ import android.util.Log;
 
 import com.example.uethub.ui.menu.dashboard.DashboardFragment;
 
+import com.example.uethub.ui.menu.home.HomeFragment;
 import com.example.uethub.ui.menu.notifications.NotificationsFragment;
 import com.example.uethub.ui.menu.profile.ProfileFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.uetplus.ui.menu.menu_home.HomeFragment;
+
 import com.wwdablu.soumya.lottiebottomnav.FontBuilder;
 import com.wwdablu.soumya.lottiebottomnav.FontItem;
 import com.wwdablu.soumya.lottiebottomnav.ILottieBottomNavCallback;
@@ -64,8 +65,8 @@ public class MainActivity extends AppCompatActivity implements ILottieBottomNavC
         spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         fontItem = FontBuilder.create(fontItem).setTitle(spannableString).build();
         MenuItem item2 = MenuItemBuilder.createFrom(item1, fontItem)
-                .selectedLottieName("gift.json")
-                .unSelectedLottieName("gift.json")
+                .selectedLottieName("books1.json")
+                .unSelectedLottieName("books1.json")
                 .loop(true)
                 .build();
 

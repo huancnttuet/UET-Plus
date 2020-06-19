@@ -59,4 +59,5 @@ dependencies {
 
     //pdf
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+    implementation 'com.github.delight-im:Android-AdvancedWebView:v3.0.0'
 }

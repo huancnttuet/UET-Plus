@@ -112,11 +112,11 @@
                                     android:shape="ring"
                                     android:thicknessRatio="1.9"
                                     >
+
                                     <ImageView
                                         android:layout_width="69dp"
                                         android:layout_height="69dp"
-                                        android:src="@drawable/timetable"
-                                        />
+                                        android:src="@drawable/timetable" />
                                 </androidx.cardview.widget.CardView>
                                 <TextView
                                     android:layout_width="wrap_content"

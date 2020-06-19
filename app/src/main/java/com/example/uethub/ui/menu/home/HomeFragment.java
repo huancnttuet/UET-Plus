@@ -1,4 +1,4 @@
-package com.uetplus.ui.menu.menu_home;
+package com.example.uethub.ui.menu.home;
 
 
 import android.content.Intent;
@@ -16,11 +16,14 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.uethub.MainActivity;
 import com.example.uethub.R;
 import com.example.uethub.cache.SaveSharedPreference;
 import com.example.uethub.models.Information;
+import com.example.uethub.ui.components.webview.WebViewFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -35,10 +38,6 @@ import java.util.regex.Pattern;
  */
 public class HomeFragment extends Fragment {
 
-    public HomeFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,7 +46,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         String data = SaveSharedPreference.getPrefData(getActivity());
-        Log.v("DÂT",data);
+
         Gson gson = new Gson();
         Type listType = new TypeToken<Information>() {}.getType();
         Information inforData = gson.fromJson(data,listType);
@@ -104,12 +103,19 @@ public class HomeFragment extends Fragment {
 
             cardView.addView(wrapper);
             coursesView.addView(cardView);
+            cardView.setBackground(getResources().getDrawable(R.drawable.backgroud_button));
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Uri uri = Uri.parse(courseUrl); // missing 'http://' will cause crashed
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    startActivity(intent);
+
+                    WebViewFragment fragment = new WebViewFragment();
+                    Bundle args = new Bundle();
+                    args.putString("url", courseUrl);
+                    fragment.setArguments(args);
+                    FragmentTransaction transaction = ((FragmentActivity)v.getContext()).getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.container, fragment);
+                    transaction.addToBackStack("WEBVIEW_TAG");
+                    transaction.commit();
                 }
             });
 
