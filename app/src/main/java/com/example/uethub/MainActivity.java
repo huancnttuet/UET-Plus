@@ -77,10 +77,10 @@ public class MainActivity extends AppCompatActivity implements ILottieBottomNavC
                 .pausedProgress(0.75f)
                 .build();
 
-        fontItem = FontBuilder.create(fontItem).setTitle("Cài đặt").build();
+        fontItem = FontBuilder.create(fontItem).setTitle("Cá nhân").build();
         MenuItem item4 = MenuItemBuilder.createFrom(item1, fontItem)
-                .selectedLottieName("settings.json")
-                .unSelectedLottieName("settings.json")
+                .selectedLottieName("profile1.json")
+                .unSelectedLottieName("profile1.json")
                 .build();
 
         list = new ArrayList<>(4);
