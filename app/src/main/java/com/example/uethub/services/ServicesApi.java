@@ -6,9 +6,12 @@ import android.util.Log;
 
 import com.example.uethub.api.LoginRest;
 import com.example.uethub.api.SupportRest;
+import com.example.uethub.api.UETRest;
+import com.example.uethub.models.DeviceModel;
 import com.example.uethub.models.ExamTimeModel;
 import com.example.uethub.models.GradesModel;
 import com.example.uethub.models.Information;
+import com.example.uethub.models.ResponseModel;
 import com.example.uethub.models.TimeTable;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -74,10 +77,19 @@ public class ServicesApi {
         return SupportRest.delete(call + "/" + id);
     }
     //////////////////////////////////////////////////////////////////////////////////
-    public static String insert(String call,TimeTable donation) {
-        Type objType = new TypeToken<TimeTable>(){}.getType();
-        String json = new Gson().toJson(donation, objType);
+    public static ResponseModel insertMyDevice(DeviceModel deviceModel) {
+        Type objType = new TypeToken<DeviceModel>(){}.getType();
+        String json = new Gson().toJson(deviceModel, objType);
+        String response = UETRest.post("/device",json);
+        Type objType2 = new TypeToken<ResponseModel>(){}.getType();
+        return new Gson().fromJson(response,objType2);
+    }
 
-        return SupportRest.post(call,json);
+    public static ResponseModel deleteMyDevice(DeviceModel deviceModel) {
+        Type objType = new TypeToken<DeviceModel>(){}.getType();
+        String json = new Gson().toJson(deviceModel, objType);
+        String response = UETRest.post("/device/delete",json);
+        Type objType2 = new TypeToken<ResponseModel>(){}.getType();
+        return new Gson().fromJson(response,objType2);
     }
 }

@@ -1,7 +1,6 @@
 package com.example.uethub;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.TypefaceCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.graphics.Color;
@@ -17,9 +16,7 @@ import com.example.uethub.ui.menu.dashboard.DashboardFragment;
 import com.example.uethub.ui.menu.home.HomeFragment;
 import com.example.uethub.ui.menu.notifications.NotificationsFragment;
 import com.example.uethub.ui.menu.profile.ProfileFragment;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
+
 
 import com.wwdablu.soumya.lottiebottomnav.FontBuilder;
 import com.wwdablu.soumya.lottiebottomnav.FontItem;
@@ -40,11 +37,22 @@ public class MainActivity extends AppCompatActivity implements ILottieBottomNavC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (savedInstanceState == null) {
+
+        String f_noti = getIntent().getStringExtra("MISSION");
+        System.out.println(f_noti);
+        if(f_noti != null && f_noti.equals("fragment_notifications")){
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, DashboardFragment.newInstance())
+                    .replace(R.id.container, new NotificationsFragment())
                     .commitNow();
+            bottomNav.setSelectedIndex(3);
+        } else {
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, DashboardFragment.newInstance())
+                        .commitNow();
+            }
         }
+
 
         bottomNav = findViewById(R.id.bottom_nav);
 
@@ -94,14 +102,7 @@ public class MainActivity extends AppCompatActivity implements ILottieBottomNavC
         bottomNav.setSelectedIndex(0);
 
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this, new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                String token = instanceIdResult.getToken();
-                Log.i("FCM Token", token);
 
-            }
-        });
 
 
     }

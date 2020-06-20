@@ -1,6 +1,7 @@
 package com.example.uethub.ui.components.webview;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 import com.example.uethub.MainActivity;
 import com.example.uethub.R;
 import com.example.uethub.permission.PermissionCheck;
+import com.example.uethub.ui.menu.dashboard.DashboardFragment;
 
 import im.delight.android.webview.AdvancedWebView;
 
@@ -32,6 +36,7 @@ public class WebViewFragment extends Fragment implements AdvancedWebView.Listene
         mWebView = (AdvancedWebView) rootView.findViewById(R.id.webview);
         mWebView.setListener(getActivity(),this);
         String url = getArguments().getString("url");
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(url);
         mWebView.loadUrl(url);
 
         // ...
