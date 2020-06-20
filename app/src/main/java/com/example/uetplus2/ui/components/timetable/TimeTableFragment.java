@@ -1,9 +1,11 @@
 package com.example.uetplus2.ui.components.timetable;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.provider.AlarmClock;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -214,6 +216,18 @@ public class TimeTableFragment extends Base {
                 dialog.dismiss();
             }
         });
+
+        //change to fragment notification
+        Button btn_notification = (Button) dialog.findViewById(R.id.btn_set_notification);
+        btn_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     public void drawTimeTable(List<TimeTable>list){
