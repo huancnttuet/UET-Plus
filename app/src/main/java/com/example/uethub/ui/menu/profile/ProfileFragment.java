@@ -2,9 +2,7 @@ package com.example.uethub.ui.menu.profile;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,17 +15,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.uethub.MainActivity;
 import com.example.uethub.R;
 import com.example.uethub.cache.SaveSharedPreference;
 import com.example.uethub.models.Information;
+import com.example.uethub.services.extensions.DownloadCircleImageTask;
 import com.example.uethub.ui.Base;
 import com.example.uethub.ui.activity.LoginActivity;
+import com.example.uethub.ui.components.grades.GradesFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -48,7 +50,7 @@ public class ProfileFragment extends Base {
         Information inforData = gson.fromJson(te,listType);
 
 
-        new DownloadImageTask((CircleImageView) root.findViewById(R.id.avatar))
+        new DownloadCircleImageTask((CircleImageView) root.findViewById(R.id.avatar))
                 .execute(inforData.avatar);
 
         LinearLayout infomationLayout = root.findViewById(R.id.infomation);
@@ -64,12 +66,17 @@ public class ProfileFragment extends Base {
         }
 
         Button logout_btn = root.findViewById(R.id.logout_btn);
-        logout_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogExit();
-            }
+        Button setting_btn = root.findViewById(R.id.settings_btn);
+
+        setting_btn.setOnClickListener(v -> {
+            Fragment fragment = new SettingFragment();
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.container, fragment);
+            transaction.addToBackStack("SETTING_TAG");
+            transaction.commit();
         });
+
+        logout_btn.setOnClickListener(v -> dialogExit());
 
         return  root;
     }
@@ -94,28 +101,5 @@ public class ProfileFragment extends Base {
         dialog.show();
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        CircleImageView bmImage;
 
-        public DownloadImageTask(CircleImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
 }

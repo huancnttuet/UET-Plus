@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -27,6 +28,7 @@ import com.example.uethub.ui.Base;
 import com.example.uethub.ui.components.examtime.ExamTimeFragment;
 import com.example.uethub.ui.components.grades.GradesFragment;
 import com.example.uethub.ui.components.timetable.TimeTableFragment;
+import com.example.uethub.ui.components.webview.WebViewFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.smarteist.autoimageslider.IndicatorAnimations;
@@ -138,7 +140,7 @@ public class DashboardFragment extends Base {
             List<List<String>> list2 = gson.fromJson(hotNewsCache, listType);
             loadStudentNewsCardView(list1);
             for (List<String> news : list2){
-                addUrlImage(news.get(1), news.get(0));
+                addUrlImage(news.get(1), news.get(0), news.get(2));
             }
         }
         else {
@@ -182,17 +184,18 @@ public class DashboardFragment extends Base {
                     String value = gson.toJson(hot_news);
                     SaveSharedPreference.setCache(getActivity(), "hotNews", value);
                     for (List<String> news : hot_news){
-                        addUrlImage(news.get(1), news.get(0));
+                        addUrlImage(news.get(1), news.get(0),news.get(2));
                     }
                 }
             }
         }).execute("/getdashboard");
     }
 
-    public void addUrlImage(String url, String description){
+    public void addUrlImage(String imageUrl, String description, String url){
         SliderItem sliderItem = new SliderItem();
         sliderItem.setDescription(description);
-        sliderItem.setImageUrl(url);
+        sliderItem.setImageUrl(imageUrl);
+        sliderItem.setUrl(url);
         adapter.addItem(sliderItem);
     }
 
@@ -233,6 +236,21 @@ public class DashboardFragment extends Base {
             textView.setGravity(Gravity.BOTTOM);
             textView.setPadding(marginSize,marginSize,marginSize,marginSize);
             cardView.addView(textView);
+            final String url = sn.get(2);
+            cardView.setBackground(getResources().getDrawable(R.drawable.backgroud_button));
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    WebViewFragment fragment = new WebViewFragment();
+                    Bundle args = new Bundle();
+                    args.putString("url", url);
+                    fragment.setArguments(args);
+                    FragmentTransaction transaction = ((FragmentActivity)v.getContext()).getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.container, fragment);
+                    transaction.addToBackStack("WEBVIEW_TAG");
+                    transaction.commit();
+                }
+            });
         }
     }
 

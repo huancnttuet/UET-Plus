@@ -1,17 +1,28 @@
 package com.example.uethub.ui.menu.dashboard;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.bumptech.glide.Glide;
 
 
 import com.example.uethub.R;
+import com.example.uethub.ui.components.grades.GradesFragment;
+import com.example.uethub.ui.components.webview.WebViewFragment;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
 import java.util.ArrayList;
@@ -64,10 +75,21 @@ public class SliderAdapterExample extends
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "This is item in position " + position + sliderItem.getDescription() + sliderItem.getImageUrl(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "This is item in position " + position + sliderItem.getDescription() + sliderItem.getImageUrl() +sliderItem.getUrl(), Toast.LENGTH_SHORT).show();
+                WebViewFragment fragment = new WebViewFragment();
+                Bundle args = new Bundle();
+                args.putString("url", sliderItem.getUrl());
+                fragment.setArguments(args);
+                FragmentTransaction transaction = ((FragmentActivity)v.getContext()).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, fragment);
+                transaction.addToBackStack("WEBVIEW_TAG");
+                transaction.commit();
+
             }
         });
     }
+
+
 
     @Override
     public int getCount() {

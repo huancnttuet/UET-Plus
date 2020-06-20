@@ -1,9 +1,11 @@
 package com.example.uethub.ui.components.timetable;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.provider.AlarmClock;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -64,6 +66,17 @@ public class TimeTableFragment extends Base {
         } else {
            refreshData(mssv);
         }
+
+        //fullscreen
+        Button btn_fullscreen = (Button) root.findViewById(R.id.timetable_fullscreen);
+        btn_fullscreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),FullScreenTimeTable.class);
+                startActivity(intent);
+            }
+        });
+
         return root;
     }
 
@@ -199,6 +212,16 @@ public class TimeTableFragment extends Base {
                 dialog.dismiss();
             }
         });
+        //change to fragment notification
+        Button btn_notification = (Button) dialog.findViewById(R.id.btn_set_notification);
+        btn_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void drawTimeTable(List<TimeTable>list){

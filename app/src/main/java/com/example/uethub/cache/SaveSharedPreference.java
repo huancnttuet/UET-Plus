@@ -12,6 +12,7 @@ public class SaveSharedPreference
     static final String PREF_USER_NAME= "username";
     static final String PREF_FULL_NAME= "fullname";
     static final String PREF_DATA = "data";
+
     static final String PREF_TIME_TABLE = "timetable";
     static final String PREF_EXAM_TIME= "examtime";
     static SharedPreferences getSharedPreferences(Context ctx) {

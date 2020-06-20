@@ -1,7 +1,6 @@
 package com.example.uethub;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.TypefaceCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.graphics.Color;
@@ -11,17 +10,14 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
-import android.widget.Button;
 
-import com.example.uethub.R;
-import com.example.uethub.ui.components.grades.GradesFragment;
 import com.example.uethub.ui.menu.dashboard.DashboardFragment;
+
 import com.example.uethub.ui.menu.home.HomeFragment;
 import com.example.uethub.ui.menu.notifications.NotificationsFragment;
 import com.example.uethub.ui.menu.profile.ProfileFragment;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
+
+
 import com.wwdablu.soumya.lottiebottomnav.FontBuilder;
 import com.wwdablu.soumya.lottiebottomnav.FontItem;
 import com.wwdablu.soumya.lottiebottomnav.ILottieBottomNavCallback;
@@ -41,11 +37,22 @@ public class MainActivity extends AppCompatActivity implements ILottieBottomNavC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (savedInstanceState == null) {
+
+        String f_noti = getIntent().getStringExtra("MISSION");
+        System.out.println(f_noti);
+        if(f_noti != null && f_noti.equals("fragment_notifications")){
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, DashboardFragment.newInstance())
+                    .replace(R.id.container, new NotificationsFragment())
                     .commitNow();
+            bottomNav.setSelectedIndex(3);
+        } else {
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, DashboardFragment.newInstance())
+                        .commitNow();
+            }
         }
+
 
         bottomNav = findViewById(R.id.bottom_nav);
 
@@ -66,8 +73,8 @@ public class MainActivity extends AppCompatActivity implements ILottieBottomNavC
         spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         fontItem = FontBuilder.create(fontItem).setTitle(spannableString).build();
         MenuItem item2 = MenuItemBuilder.createFrom(item1, fontItem)
-                .selectedLottieName("gift.json")
-                .unSelectedLottieName("gift.json")
+                .selectedLottieName("books1.json")
+                .unSelectedLottieName("books1.json")
                 .loop(true)
                 .build();
 
@@ -78,10 +85,10 @@ public class MainActivity extends AppCompatActivity implements ILottieBottomNavC
                 .pausedProgress(0.75f)
                 .build();
 
-        fontItem = FontBuilder.create(fontItem).setTitle("Cài đặt").build();
+        fontItem = FontBuilder.create(fontItem).setTitle("Cá nhân").build();
         MenuItem item4 = MenuItemBuilder.createFrom(item1, fontItem)
-                .selectedLottieName("settings.json")
-                .unSelectedLottieName("settings.json")
+                .selectedLottieName("profile1.json")
+                .unSelectedLottieName("profile1.json")
                 .build();
 
         list = new ArrayList<>(4);
@@ -95,14 +102,7 @@ public class MainActivity extends AppCompatActivity implements ILottieBottomNavC
         bottomNav.setSelectedIndex(0);
 
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this, new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                String token = instanceIdResult.getToken();
-                Log.i("FCM Token", token);
 
-            }
-        });
 
 
     }
