@@ -72,20 +72,17 @@ public class SliderAdapterExample extends
                 .fitCenter()
                 .into(viewHolder.imageViewBackground);
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "This is item in position " + position + sliderItem.getDescription() + sliderItem.getImageUrl() +sliderItem.getUrl(), Toast.LENGTH_SHORT).show();
-                WebViewFragment fragment = new WebViewFragment();
-                Bundle args = new Bundle();
-                args.putString("url", sliderItem.getUrl());
-                fragment.setArguments(args);
-                FragmentTransaction transaction = ((FragmentActivity)v.getContext()).getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, fragment);
-                transaction.addToBackStack("WEBVIEW_TAG");
-                transaction.commit();
+        viewHolder.itemView.setOnClickListener(v -> {
+//                Toast.makeText(context, "This is item in position " + position + sliderItem.getDescription() + sliderItem.getImageUrl() +sliderItem.getUrl(), Toast.LENGTH_SHORT).show();
+            WebViewFragment fragment = new WebViewFragment();
+            Bundle args = new Bundle();
+            args.putString("url", sliderItem.getUrl());
+            fragment.setArguments(args);
+            FragmentTransaction transaction = ((FragmentActivity)v.getContext()).getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.container, fragment);
+            transaction.addToBackStack("WEBVIEW_TAG");
+            transaction.commit();
 
-            }
         });
     }
 

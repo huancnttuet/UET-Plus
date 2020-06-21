@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">UET HUB</string>
+    <string name="app_name">UET Hub</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Thông báo</string>
     <string name="title_profile">Tôi</string>
-    <string name="version">Version 3.0</string>
+    <string name="version">Version 3.1</string>
     <string name="password">Mật khẩu</string>
     <string name="login">Đăng nhập</string>
     <string name="swipe_left_for_register">Đăng ký</string>

@@ -17,6 +17,8 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.uethub.MainActivity;
 import com.example.uethub.R;
+import com.example.uethub.cache.SaveSharedPreference;
+import com.example.uethub.models.NotificationModel;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -59,9 +61,9 @@ public class MyFirebaseService extends FirebaseMessagingService {
         try {
             String title = (String) data.get("title");
             String message = (String) data.get("message");
-
+            long time = System.currentTimeMillis();
             int notificationId = new Random().nextInt();
-
+            SaveSharedPreference.setPrefNotify(getBaseContext(),new NotificationModel(title, message, time));
 
 //            Intent acceptIntent = createIntent(MissionActivity.ACCEPT_ACTION, notificationId, mission);
 //            Intent rejectIntent = createIntent(MissionActivity.REJECT_ACTION, notificationId, mission);
@@ -82,14 +84,7 @@ public class MyFirebaseService extends FirebaseMessagingService {
                             .setContentIntent(pendingIntent)
                             .setDefaults(Notification.DEFAULT_ALL)
                             .setPriority(NotificationManager.IMPORTANCE_HIGH)
-                            .addAction(new NotificationCompat.Action(
-                                    android.R.drawable.sym_call_missed,
-                                    "Reject",
-                                    PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)))
-                            .addAction(new NotificationCompat.Action(
-                                    android.R.drawable.sym_call_outgoing,
-                                    "Accept",
-                                    PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)));
+                            ;
 
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 

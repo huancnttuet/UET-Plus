@@ -20,13 +20,17 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
+import com.bumptech.glide.Glide;
 import com.example.uethub.R;
 import com.example.uethub.cache.SaveSharedPreference;
+import com.example.uethub.models.NewsModel;
 import com.example.uethub.services.extensions.DownloadImageTask;
-import com.example.uethub.services.news.GetNews;
+import com.example.uethub.services.news.GetDashboardNews;
+
 import com.example.uethub.ui.Base;
 import com.example.uethub.ui.components.examtime.ExamTimeFragment;
 import com.example.uethub.ui.components.grades.GradesFragment;
+import com.example.uethub.ui.components.news.NewsFragment;
 import com.example.uethub.ui.components.timetable.TimeTableFragment;
 import com.example.uethub.ui.components.webview.WebViewFragment;
 import com.google.gson.Gson;
@@ -76,7 +80,6 @@ public class DashboardFragment extends Base {
             @Override
             public void onIndicatorClicked(int position) {
                 sliderView.setCurrentPagePosition(position);
-                Log.v("sl ","clcik");
             }
         });
 
@@ -86,37 +89,35 @@ public class DashboardFragment extends Base {
         examtime_btn.setClickable(true);
         grades_btn = root.findViewById(R.id.grades_btn);
         grades_btn.setClickable(true);
-
-        schedule_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment timetableFragment = new TimeTableFragment();
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, timetableFragment,"TIMETABLE_TAG");
-                transaction.addToBackStack("TIMETABLE_TAG");
-                transaction.commit();
-            }
+        TextView news_all_btn = root.findViewById(R.id.news_all_btn);
+        news_all_btn.setOnClickListener(v -> {
+            Fragment timetableFragment = new NewsFragment();
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.container, timetableFragment,"NEWS_TAG");
+            transaction.addToBackStack("NEWS_TAG");
+            transaction.commit();
+        });
+        schedule_btn.setOnClickListener(v -> {
+            Fragment timetableFragment = new TimeTableFragment();
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.container, timetableFragment,"TIMETABLE_TAG");
+            transaction.addToBackStack("TIMETABLE_TAG");
+            transaction.commit();
         });
 
-        examtime_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new ExamTimeFragment();
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, fragment,"EXAMTIME_TAG");
-                transaction.addToBackStack("EXAMTIME_TAG");
-                transaction.commit();
-            }
+        examtime_btn.setOnClickListener(v -> {
+            Fragment fragment = new ExamTimeFragment();
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.container, fragment,"EXAMTIME_TAG");
+            transaction.addToBackStack("EXAMTIME_TAG");
+            transaction.commit();
         });
 
-        grades_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, new GradesFragment());
-                transaction.addToBackStack("GRADES_TAG");
-                transaction.commit();
-            }
+        grades_btn.setOnClickListener(v -> {
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.container, new GradesFragment());
+            transaction.addToBackStack("GRADES_TAG");
+            transaction.commit();
         });
 
 //        final SwipeRefreshLayout pullToRefresh = getActivity().findViewById(R.id.pullToRefresh);
@@ -134,13 +135,13 @@ public class DashboardFragment extends Base {
 
         if(studentNewsCache.length() != 0 || hotNewsCache.length() != 0) {
             Gson gson = new Gson();
-            Type listType = new TypeToken<List<List<String>>>() {}.getType();
+            Type listType = new TypeToken<List<NewsModel>>() {}.getType();
 
-            List<List<String>> list1 = gson.fromJson(studentNewsCache, listType);
-            List<List<String>> list2 = gson.fromJson(hotNewsCache, listType);
+            List<NewsModel> list1 = gson.fromJson(studentNewsCache, listType);
+            List<NewsModel> list2 = gson.fromJson(hotNewsCache, listType);
             loadStudentNewsCardView(list1);
-            for (List<String> news : list2){
-                addUrlImage(news.get(1), news.get(0), news.get(2));
+            for (NewsModel news : list2){
+                addUrlImage(news.image, news.name, news.url);
             }
         }
         else {
@@ -164,28 +165,19 @@ public class DashboardFragment extends Base {
 
 
     public void refreshData(){
-        new GetNews(getContext(), new GetNews.AsyncResponse() {
-            @Override
-            public void processFinish(List<List<String>> student_news) {
-                if(student_news != null){
-                    Gson gson = new Gson();
-                    String value = gson.toJson(student_news);
-                    SaveSharedPreference.setCache(getActivity(), "studentNews", value);
-                    loadStudentNewsCardView(student_news);
-                }
-            }
-        }).execute("/getstudentnews");
+        new GetDashboardNews(getContext(), news_list -> {
+            if(news_list != null){
+                Gson gson = new Gson();
+                List<NewsModel> hot_news = news_list.get(0);
+                List<NewsModel> student_news = news_list.get(1);
+                String value1 = gson.toJson(hot_news);
+                String value2 = gson.toJson(student_news);
+                SaveSharedPreference.setCache(getActivity(), "hotNews", value1);
+                SaveSharedPreference.setCache(getActivity(), "studentNews", value2);
 
-        new GetNews(getContext(),new GetNews.AsyncResponse(){
-            @Override
-            public void processFinish(List<List<String>> hot_news) {
-                if(hot_news != null){
-                    Gson gson = new Gson();
-                    String value = gson.toJson(hot_news);
-                    SaveSharedPreference.setCache(getActivity(), "hotNews", value);
-                    for (List<String> news : hot_news){
-                        addUrlImage(news.get(1), news.get(0),news.get(2));
-                    }
+                loadStudentNewsCardView(student_news);
+                for (NewsModel news : hot_news){
+                    addUrlImage(news.image, news.name,news.url);
                 }
             }
         }).execute("/getdashboard");
@@ -200,8 +192,7 @@ public class DashboardFragment extends Base {
     }
 
 
-
-    public void loadStudentNewsCardView(List<List<String>> studentNewsList){
+    public void loadStudentNewsCardView(List<NewsModel> studentNewsList){
         int width = (int) getResources().getDimension(R.dimen.cardview_width);
         int height = (int) getResources().getDimension(R.dimen.cardview_width);
         int marginSize = (int) getResources().getDimension(R.dimen.margin_cardview);
@@ -212,7 +203,7 @@ public class DashboardFragment extends Base {
         LinearLayout.LayoutParams param_text = new LinearLayout.LayoutParams(width, height);
         param_default.setMargins(marginSize,marginSize,marginSize,marginSize);
 
-        for (List<String> sn: studentNewsList
+        for (NewsModel news: studentNewsList
              ) {
             CardView cardView = new CardView(getContext());
             cardView.setLayoutParams(param_default);
@@ -224,32 +215,34 @@ public class DashboardFragment extends Base {
 
             ImageView imageView = new ImageView(getContext());
             imageView.setLayoutParams(param_image);
-            imageView.setImageResource(R.drawable.uet_icon2);
-            new DownloadImageTask(imageView).execute(sn.get(1));
+            Glide.with(getContext())
+                    .load(news.image)
+                    .centerCrop()
+                    .placeholder(R.drawable.uet_icon2)
+                    .into(imageView);
+//            imageView.setImageResource(R.drawable.uet_icon2);
+//            new DownloadImageTask(imageView).execute(news.image);
             cardView.addView(imageView);
 
             TextView textView = new TextView(getContext());
 
             textView.setLayoutParams(param_text);
             textView.setTextSize(19f);
-            textView.setText(sn.get(0));
+            textView.setText(news.name);
             textView.setGravity(Gravity.BOTTOM);
             textView.setPadding(marginSize,marginSize,marginSize,marginSize);
             cardView.addView(textView);
-            final String url = sn.get(2);
+            final String url = news.url;
             cardView.setBackground(getResources().getDrawable(R.drawable.backgroud_button));
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    WebViewFragment fragment = new WebViewFragment();
-                    Bundle args = new Bundle();
-                    args.putString("url", url);
-                    fragment.setArguments(args);
-                    FragmentTransaction transaction = ((FragmentActivity)v.getContext()).getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.container, fragment);
-                    transaction.addToBackStack("WEBVIEW_TAG");
-                    transaction.commit();
-                }
+            cardView.setOnClickListener(v -> {
+                WebViewFragment fragment = new WebViewFragment();
+                Bundle args = new Bundle();
+                args.putString("url", url);
+                fragment.setArguments(args);
+                FragmentTransaction transaction = ((FragmentActivity)v.getContext()).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, fragment);
+                transaction.addToBackStack("WEBVIEW_TAG");
+                transaction.commit();
             });
         }
     }

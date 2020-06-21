@@ -5,16 +5,20 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.example.uethub.models.Information;
+import com.example.uethub.models.NotificationModel;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SaveSharedPreference
 {
     static final String PREF_USER_NAME= "username";
     static final String PREF_FULL_NAME= "fullname";
     static final String PREF_DATA = "data";
-
-    static final String PREF_TIME_TABLE = "timetable";
-    static final String PREF_EXAM_TIME= "examtime";
+    static final String PREF_NOTIFY = "notify";
     static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);
     }
@@ -25,6 +29,30 @@ public class SaveSharedPreference
         Gson gson = new Gson();
         String json = gson.toJson(data);
         editor.putString(PREF_DATA, json);
+        editor.commit();
+    }
+
+    public static String getPrefNotify(Context ctx)
+    {
+        return getSharedPreferences(ctx).getString(PREF_NOTIFY,"");
+    }
+
+    public static void setPrefNotify(Context ctx, NotificationModel data)
+    {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        List<NotificationModel> list = new ArrayList<NotificationModel>();
+        String cache = getPrefNotify(ctx);
+        Gson gson = new Gson();
+
+        if(cache.length() == 0 ){
+            list.add(data);
+        } else {
+            Type listType = new TypeToken<List<NotificationModel>>() {}.getType();
+            list = gson.fromJson(cache, listType);
+            list.add(data);
+        }
+        String json = gson.toJson(list);
+        editor.putString(PREF_NOTIFY, json);
         editor.commit();
     }
 

@@ -21,7 +21,7 @@ public class LoginRest {
             url = new URL(hostURL + request);
             httpCon = (HttpURLConnection) url.openConnection();
             httpCon.setUseCaches(false);
-            httpCon.setReadTimeout(15 * 1000); // 15 seconds to timeout
+            httpCon.setReadTimeout(30 * 1000); // 15 seconds to timeout
             httpCon.setRequestProperty("Content-Type", "application/json");
             httpCon.setRequestProperty("Accept", "application/json");
         } catch (Exception e) {

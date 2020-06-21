@@ -202,6 +202,7 @@
                         android:textSize="24dp"
                         android:layout_margin="15dp" />
                     <TextView
+                        android:id="@+id/news_all_btn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Tất cả"
@@ -210,6 +211,7 @@
                         android:gravity="right"
                         android:layout_margin="15dp"
                         android:clickable="true"
+
                         />
                 </LinearLayout>
 

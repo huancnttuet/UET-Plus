@@ -11,6 +11,7 @@ import com.example.uethub.models.DeviceModel;
 import com.example.uethub.models.ExamTimeModel;
 import com.example.uethub.models.GradesModel;
 import com.example.uethub.models.Information;
+import com.example.uethub.models.NewsModel;
 import com.example.uethub.models.ResponseModel;
 import com.example.uethub.models.TimeTable;
 import com.google.gson.Gson;
@@ -37,10 +38,18 @@ public class ServicesApi {
         return new Gson().fromJson(json, objType);
     }
 
-    public static List<List<String>> getNews(String call){
+    public static List<List<NewsModel>> getDashboardNews(String call){
         String json = LoginRest.get("/news" + call);
         Log.v("News", "JSON RESULT : " + json);
-        Type objType = new TypeToken<List<List<String>>>(){}.getType();
+        Type objType = new TypeToken<List<List<NewsModel>>>(){}.getType();
+
+        return new Gson().fromJson(json, objType);
+    }
+
+    public static List<NewsModel> getNews(String call){
+        String json = LoginRest.get("/news" + call);
+        Log.v("News", "JSON RESULT : " + json);
+        Type objType = new TypeToken<List<NewsModel>>(){}.getType();
 
         return new Gson().fromJson(json, objType);
     }

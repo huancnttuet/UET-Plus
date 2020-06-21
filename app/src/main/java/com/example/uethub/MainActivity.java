@@ -39,12 +39,13 @@ public class MainActivity extends AppCompatActivity implements ILottieBottomNavC
         setContentView(R.layout.activity_main);
 
         String f_noti = getIntent().getStringExtra("MISSION");
+        int firstNav = 0;
         System.out.println(f_noti);
         if(f_noti != null && f_noti.equals("fragment_notifications")){
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, new NotificationsFragment())
                     .commitNow();
-            bottomNav.setSelectedIndex(3);
+            firstNav = 2;
         } else {
             if (savedInstanceState == null) {
                 getSupportFragmentManager().beginTransaction()
@@ -99,10 +100,7 @@ public class MainActivity extends AppCompatActivity implements ILottieBottomNavC
 
         bottomNav.setCallback(this);
         bottomNav.setMenuItemList(list);
-        bottomNav.setSelectedIndex(0);
-
-
-
+        bottomNav.setSelectedIndex(firstNav);
 
 
     }
