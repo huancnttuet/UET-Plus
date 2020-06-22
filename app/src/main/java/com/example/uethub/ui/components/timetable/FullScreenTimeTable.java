@@ -2,10 +2,14 @@ package com.example.uethub.ui.components.timetable;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,6 +40,15 @@ public class FullScreenTimeTable extends AppCompatActivity {
             List<TimeTable> list = gson.fromJson(timetableCache,listType);
             drawTimeTable(list);
         }
+
+        ImageView exit_fullscreen = (ImageView) this.findViewById(R.id.exit_fullscreen);
+        exit_fullscreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     public void drawTimeTable(List<TimeTable> list) {

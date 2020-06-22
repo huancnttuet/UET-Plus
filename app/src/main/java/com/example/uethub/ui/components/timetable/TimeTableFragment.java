@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -45,7 +46,7 @@ public class TimeTableFragment extends Base {
         root = inflater.inflate(R.layout.fragment_time_table, container, false);
 
 
-        final String mssv = SaveSharedPreference.getCache(getActivity(),"username");
+        final String mssv = SaveSharedPreference.getCache(getActivity(), "username");
 //        final SwipeRefreshLayout pullToRefresh = getActivity().findViewById(R.id.pullToRefresh);
 //        pullToRefresh.setColorSchemeResources(R.color.calendar_today,R.color.colorPrimary,R.color.colorLightRed);
 //        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -56,23 +57,24 @@ public class TimeTableFragment extends Base {
 //            }
 //        });
 
-        String timetableCache = SaveSharedPreference.getCache(getActivity(),"timetable");
-        if(timetableCache.length() != 0){
+        String timetableCache = SaveSharedPreference.getCache(getActivity(), "timetable");
+        if (timetableCache.length() != 0) {
             Gson gson = new Gson();
-            Type listType = new TypeToken<List<TimeTable>>() {}.getType();
-            List<TimeTable> list = gson.fromJson(timetableCache,listType);
+            Type listType = new TypeToken<List<TimeTable>>() {
+            }.getType();
+            List<TimeTable> list = gson.fromJson(timetableCache, listType);
 //            draw(root,list);
             drawTimeTable(list);
         } else {
-           refreshData(mssv);
+            refreshData(mssv);
         }
 
         //fullscreen
-        Button btn_fullscreen = (Button) root.findViewById(R.id.timetable_fullscreen);
+        ImageView btn_fullscreen = (ImageView) root.findViewById(R.id.timetable_fullscreen);
         btn_fullscreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),FullScreenTimeTable.class);
+                Intent intent = new Intent(getActivity(), FullScreenTimeTable.class);
                 startActivity(intent);
             }
         });
@@ -81,9 +83,7 @@ public class TimeTableFragment extends Base {
     }
 
 
-
-
-    public void refreshData(String mssv){
+    public void refreshData(String mssv) {
         new GetTimeTableByMssv(getContext(), new GetTimeTableByMssv.AsyncResponse() {
             @Override
             public void processFinish(List<TimeTable> output) {
@@ -100,10 +100,10 @@ public class TimeTableFragment extends Base {
                     return;
                 }
             }
-        }).execute("/schedule/test",mssv);
+        }).execute("/schedule/test", mssv);
     }
 
-    public void openSortDialog(View root, int type ){
+    public void openSortDialog(View root, int type) {
         root.findViewById(R.id.loadingPanel).setVisibility(View.GONE);
         final Dialog message = new Dialog(root.getContext());
         message.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -172,7 +172,7 @@ public class TimeTableFragment extends Base {
 //        }
 //    }
 
-    public void setOnClick(TextView btn, final List<TimeTable> l, final int i){
+    public void setOnClick(TextView btn, final List<TimeTable> l, final int i) {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,7 +202,7 @@ public class TimeTableFragment extends Base {
         teacher.setText(subject.getTeacher());
         student_total.setText(subject.getStudent_total() + " sinh viên");
         String[] time = subject.getLesson().split("-");
-        lession.setText("Thời gian: " + convertTime(Integer.parseInt(time[0])) + " - " + convertTime(Integer.parseInt(time[1])+1));
+        lession.setText("Thời gian: " + convertTime(Integer.parseInt(time[0])) + " - " + convertTime(Integer.parseInt(time[1]) + 1));
         classroom.setText("Địa điểm: " + subject.getRoom());
         dialog.show();
         Button exit_btn = dialog.findViewById(R.id.exit_btn);
@@ -218,13 +218,16 @@ public class TimeTableFragment extends Base {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM);
+                intent.putExtra(AlarmClock.EXTRA_HOUR, Integer.parseInt(time[0]) + 6 - 1);
+                intent.putExtra(AlarmClock.EXTRA_MINUTES, 30);
+                intent.putExtra(AlarmClock.EXTRA_MESSAGE, "Đến giờ đi học " + subject.subject_name + " rồi!!");
                 startActivity(intent);
             }
         });
 
     }
 
-    public void drawTimeTable(List<TimeTable>list){
+    public void drawTimeTable(List<TimeTable> list) {
 
         List<LinearLayout> listWeeks = new ArrayList<>();
         listWeeks.add((LinearLayout) root.findViewById(R.id.monday));
@@ -235,7 +238,7 @@ public class TimeTableFragment extends Base {
         listWeeks.add((LinearLayout) root.findViewById(R.id.saturday));
         listWeeks.add((LinearLayout) root.findViewById(R.id.sunday));
 
-        for(int i = 0; i<listWeeks.size(); i++){
+        for (int i = 0; i < listWeeks.size(); i++) {
             listWeeks.get(i).removeAllViews();
         }
 
@@ -248,40 +251,40 @@ public class TimeTableFragment extends Base {
             textView.setBackground(ContextCompat.getDrawable(textView.getContext(), R.drawable.border_subjects));
             textView.setGravity(Gravity.CENTER);
             int index = Integer.parseInt(list.get(i).day_week) - 2;
-            setOnClick(textView,list, i);
+            setOnClick(textView, list, i);
             listWeeks.get(index).addView(textView);
         }
 
     }
 
-    public String convertTime(int lession){
-        switch (lession){
+    public String convertTime(int lession) {
+        switch (lession) {
             case 1:
                 return "7h";
             case 2:
                 return "8h";
             case 3:
-                return  "9h";
+                return "9h";
             case 4:
-                return  "10h";
+                return "10h";
             case 5:
-                return  "11h";
+                return "11h";
             case 6:
-                return  "12h";
+                return "12h";
             case 7:
-                return  "13h";
+                return "13h";
             case 8:
-                return  "14h";
+                return "14h";
             case 9:
-                return  "15h";
+                return "15h";
             case 10:
-                return  "16h";
+                return "16h";
             case 11:
-                return  "17h";
+                return "17h";
             case 12:
-                return  "18h";
+                return "18h";
             case 13:
-                return  "19h";
+                return "19h";
         }
         return "0h";
     }

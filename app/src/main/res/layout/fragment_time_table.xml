@@ -16,17 +16,26 @@
        android:layout_marginBottom="60dp"
        >
 
-      <Button
+<!--      <Button-->
+<!--          android:id="@+id/timetable_fullscreen"-->
+<!--          android:layout_width="wrap_content"-->
+<!--          android:layout_height="wrap_content"-->
+<!--          android:layout_alignParentEnd="true"-->
+<!--          android:layout_marginStart="0dp"-->
+<!--          android:layout_marginTop="0dp"-->
+<!--          android:layout_marginEnd="26dp"-->
+<!--          android:layout_marginBottom="0dp"-->
+<!--          android:layout_weight="1"-->
+<!--          android:text="Full Screen" >-->
+      <!--      </Button>-->
+
+      <ImageView
           android:id="@+id/timetable_fullscreen"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
+          android:layout_width="46dp"
+          android:layout_height="39dp"
           android:layout_alignParentEnd="true"
-          android:layout_marginStart="0dp"
-          android:layout_marginTop="0dp"
-          android:layout_marginEnd="26dp"
-          android:layout_marginBottom="0dp"
-          android:layout_weight="1"
-          android:text="Full Screen" />
+          android:layout_marginEnd="22dp"
+          android:src="@drawable/fullscreen" />
 
       <ScrollView
           android:layout_marginTop="50dp"
