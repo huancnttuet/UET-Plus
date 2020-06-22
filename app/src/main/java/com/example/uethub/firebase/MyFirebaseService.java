@@ -62,8 +62,10 @@ public class MyFirebaseService extends FirebaseMessagingService {
             String title = (String) data.get("title");
             String message = (String) data.get("message");
             long time = System.currentTimeMillis();
+            String action = (String) data.get("action");
+            String payload = (String) data.get("payload");
             int notificationId = new Random().nextInt();
-            SaveSharedPreference.setPrefNotify(getBaseContext(),new NotificationModel(title, message, time));
+            SaveSharedPreference.setPrefNotify(getBaseContext(),new NotificationModel(title, message, action,payload,time));
 
 //            Intent acceptIntent = createIntent(MissionActivity.ACCEPT_ACTION, notificationId, mission);
 //            Intent rejectIntent = createIntent(MissionActivity.REJECT_ACTION, notificationId, mission);

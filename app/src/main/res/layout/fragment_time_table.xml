@@ -9,223 +9,229 @@
     android:orientation="horizontal"
     android:background="@color/white"
     >
-   <RelativeLayout
+   <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_marginTop="50dp"
-       android:layout_marginBottom="60dp"
-       >
-
-      <Button
-          android:id="@+id/timetable_fullscreen"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentEnd="true"
-          android:layout_marginStart="0dp"
-          android:layout_marginTop="0dp"
-          android:layout_marginEnd="26dp"
-          android:layout_marginBottom="0dp"
-          android:layout_weight="1"
-          android:text="Full Screen" />
-
-      <ScrollView
-          android:layout_marginTop="50dp"
-          android:id = "@+id/view_scroll_timetable"
+       android:layout_height="match_parent"
+       android:id="@+id/pullToRefresh">
+      <RelativeLayout
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:scrollbars="vertical">
+          android:layout_height="wrap_content"
+          android:layout_marginTop="50dp"
+          android:layout_marginBottom="60dp"
+          >
 
-         <HorizontalScrollView
+         <Button
+             android:id="@+id/timetable_fullscreen"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentEnd="true"
+             android:layout_marginStart="0dp"
+             android:layout_marginTop="0dp"
+             android:layout_marginEnd="26dp"
+             android:layout_marginBottom="0dp"
+             android:layout_weight="1"
+             android:text="Full Screen" />
+
+         <ScrollView
+             android:layout_marginTop="50dp"
+             android:id = "@+id/view_scroll_timetable"
              android:layout_width="match_parent"
-             android:layout_height="match_parent">
+             android:layout_height="match_parent"
+             android:scrollbars="vertical">
 
-            <LinearLayout
+            <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                <LinearLayout
-                   android:layout_width="100dp"
-                   android:layout_height="wrap_content"
-                   android:layout_margin="2dp"
-                   android:gravity="center"
-                   android:orientation="vertical">
-
-                  <TextView
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:layout_margin="2dp"
-                      android:background="@drawable/border_weekdays"
-                      android:gravity="center"
-                      android:padding="5dp"
-                      android:text="Thứ 2"
-                      android:textStyle="bold"></TextView>
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent">
 
                   <LinearLayout
-                      android:id="@+id/monday"
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:gravity="center_horizontal"
-                      android:orientation="vertical"></LinearLayout>
+                      android:layout_width="100dp"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="2dp"
+                      android:gravity="center"
+                      android:orientation="vertical">
+
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:layout_margin="2dp"
+                         android:background="@drawable/border_weekdays"
+                         android:gravity="center"
+                         android:padding="5dp"
+                         android:text="Thứ 2"
+                         android:textStyle="bold"></TextView>
+
+                     <LinearLayout
+                         android:id="@+id/monday"
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:gravity="center_horizontal"
+                         android:orientation="vertical"></LinearLayout>
+
+                  </LinearLayout>
+
+                  <LinearLayout
+                      android:layout_width="100dp"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="2dp"
+                      android:gravity="center"
+                      android:orientation="vertical">
+
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:layout_margin="2dp"
+                         android:background="@drawable/border_weekdays"
+                         android:gravity="center"
+                         android:padding="5dp"
+                         android:text="Thứ 3"
+                         android:textStyle="bold"></TextView>
+
+                     <LinearLayout
+                         android:id="@+id/tuesday"
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:gravity="center_horizontal"
+                         android:orientation="vertical"></LinearLayout>
+                  </LinearLayout>
+
+                  <LinearLayout
+                      android:layout_width="100dp"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="2dp"
+                      android:gravity="center"
+                      android:orientation="vertical">
+
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:layout_margin="2dp"
+                         android:background="@drawable/border_weekdays"
+                         android:gravity="center"
+                         android:padding="5dp"
+                         android:text="Thứ 4"
+                         android:textStyle="bold"></TextView>
+
+                     <LinearLayout
+                         android:id="@+id/wednesday"
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:gravity="center_horizontal"
+                         android:orientation="vertical"></LinearLayout>
+                  </LinearLayout>
+
+                  <LinearLayout
+                      android:layout_width="100dp"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="2dp"
+                      android:gravity="center"
+                      android:orientation="vertical">
+
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:layout_margin="2dp"
+                         android:background="@drawable/border_weekdays"
+                         android:gravity="center"
+                         android:padding="5dp"
+                         android:text="Thứ 5"
+                         android:textStyle="bold"></TextView>
+
+                     <LinearLayout
+                         android:id="@+id/thursday"
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:gravity="center_horizontal"
+                         android:orientation="vertical"></LinearLayout>
+                  </LinearLayout>
+
+                  <LinearLayout
+                      android:layout_width="100dp"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="2dp"
+                      android:gravity="center"
+                      android:orientation="vertical">
+
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:layout_margin="2dp"
+                         android:background="@drawable/border_weekdays"
+                         android:gravity="center"
+                         android:padding="5dp"
+                         android:text="Thứ 6"
+                         android:textStyle="bold"></TextView>
+
+                     <LinearLayout
+                         android:id="@+id/friday"
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:gravity="center_horizontal"
+                         android:orientation="vertical"></LinearLayout>
+                  </LinearLayout>
+
+                  <LinearLayout
+                      android:layout_width="100dp"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="2dp"
+                      android:gravity="center"
+                      android:orientation="vertical">
+
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:layout_margin="2dp"
+                         android:background="@drawable/border_weekdays"
+                         android:gravity="center"
+                         android:padding="5dp"
+                         android:text="Thứ 7"
+                         android:textStyle="bold"></TextView>
+
+                     <LinearLayout
+                         android:id="@+id/saturday"
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:gravity="center_horizontal"
+                         android:orientation="vertical"></LinearLayout>
+                  </LinearLayout>
+
+                  <LinearLayout
+                      android:layout_width="100dp"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="2dp"
+                      android:gravity="center"
+                      android:orientation="vertical">
+
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:layout_margin="2dp"
+                         android:background="@drawable/border_weekdays"
+                         android:gravity="center"
+                         android:padding="5dp"
+                         android:text="chủ nhật"
+                         android:textStyle="bold"></TextView>
+
+                     <LinearLayout
+                         android:id="@+id/sunday"
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:gravity="center_horizontal"
+                         android:orientation="vertical"></LinearLayout>
+
+                  </LinearLayout>
 
                </LinearLayout>
 
-               <LinearLayout
-                   android:layout_width="100dp"
-                   android:layout_height="wrap_content"
-                   android:layout_margin="2dp"
-                   android:gravity="center"
-                   android:orientation="vertical">
+            </HorizontalScrollView>
 
-                  <TextView
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:layout_margin="2dp"
-                      android:background="@drawable/border_weekdays"
-                      android:gravity="center"
-                      android:padding="5dp"
-                      android:text="Thứ 3"
-                      android:textStyle="bold"></TextView>
+         </ScrollView>
+      </RelativeLayout>
+   </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-                  <LinearLayout
-                      android:id="@+id/tuesday"
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:gravity="center_horizontal"
-                      android:orientation="vertical"></LinearLayout>
-               </LinearLayout>
-
-               <LinearLayout
-                   android:layout_width="100dp"
-                   android:layout_height="wrap_content"
-                   android:layout_margin="2dp"
-                   android:gravity="center"
-                   android:orientation="vertical">
-
-                  <TextView
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:layout_margin="2dp"
-                      android:background="@drawable/border_weekdays"
-                      android:gravity="center"
-                      android:padding="5dp"
-                      android:text="Thứ 4"
-                      android:textStyle="bold"></TextView>
-
-                  <LinearLayout
-                      android:id="@+id/wednesday"
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:gravity="center_horizontal"
-                      android:orientation="vertical"></LinearLayout>
-               </LinearLayout>
-
-               <LinearLayout
-                   android:layout_width="100dp"
-                   android:layout_height="wrap_content"
-                   android:layout_margin="2dp"
-                   android:gravity="center"
-                   android:orientation="vertical">
-
-                  <TextView
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:layout_margin="2dp"
-                      android:background="@drawable/border_weekdays"
-                      android:gravity="center"
-                      android:padding="5dp"
-                      android:text="Thứ 5"
-                      android:textStyle="bold"></TextView>
-
-                  <LinearLayout
-                      android:id="@+id/thursday"
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:gravity="center_horizontal"
-                      android:orientation="vertical"></LinearLayout>
-               </LinearLayout>
-
-               <LinearLayout
-                   android:layout_width="100dp"
-                   android:layout_height="wrap_content"
-                   android:layout_margin="2dp"
-                   android:gravity="center"
-                   android:orientation="vertical">
-
-                  <TextView
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:layout_margin="2dp"
-                      android:background="@drawable/border_weekdays"
-                      android:gravity="center"
-                      android:padding="5dp"
-                      android:text="Thứ 6"
-                      android:textStyle="bold"></TextView>
-
-                  <LinearLayout
-                      android:id="@+id/friday"
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:gravity="center_horizontal"
-                      android:orientation="vertical"></LinearLayout>
-               </LinearLayout>
-
-               <LinearLayout
-                   android:layout_width="100dp"
-                   android:layout_height="wrap_content"
-                   android:layout_margin="2dp"
-                   android:gravity="center"
-                   android:orientation="vertical">
-
-                  <TextView
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:layout_margin="2dp"
-                      android:background="@drawable/border_weekdays"
-                      android:gravity="center"
-                      android:padding="5dp"
-                      android:text="Thứ 7"
-                      android:textStyle="bold"></TextView>
-
-                  <LinearLayout
-                      android:id="@+id/saturday"
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:gravity="center_horizontal"
-                      android:orientation="vertical"></LinearLayout>
-               </LinearLayout>
-
-               <LinearLayout
-                   android:layout_width="100dp"
-                   android:layout_height="wrap_content"
-                   android:layout_margin="2dp"
-                   android:gravity="center"
-                   android:orientation="vertical">
-
-                  <TextView
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:layout_margin="2dp"
-                      android:background="@drawable/border_weekdays"
-                      android:gravity="center"
-                      android:padding="5dp"
-                      android:text="chủ nhật"
-                      android:textStyle="bold"></TextView>
-
-                  <LinearLayout
-                      android:id="@+id/sunday"
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:gravity="center_horizontal"
-                      android:orientation="vertical"></LinearLayout>
-
-               </LinearLayout>
-
-            </LinearLayout>
-
-         </HorizontalScrollView>
-
-      </ScrollView>
-   </RelativeLayout>
 
 
 </LinearLayout>

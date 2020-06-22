@@ -46,15 +46,15 @@ public class TimeTableFragment extends Base {
 
 
         final String mssv = SaveSharedPreference.getCache(getActivity(),"username");
-//        final SwipeRefreshLayout pullToRefresh = getActivity().findViewById(R.id.pullToRefresh);
-//        pullToRefresh.setColorSchemeResources(R.color.calendar_today,R.color.colorPrimary,R.color.colorLightRed);
-//        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                refreshData(mssv);
-//                pullToRefresh.setRefreshing(false);
-//            }
-//        });
+        final SwipeRefreshLayout pullToRefresh = root.findViewById(R.id.pullToRefresh);
+        pullToRefresh.setColorSchemeResources(R.color.calendar_today,R.color.colorPrimary,R.color.colorLightRed);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData(mssv);
+                pullToRefresh.setRefreshing(false);
+            }
+        });
 
         String timetableCache = SaveSharedPreference.getCache(getActivity(),"timetable");
         if(timetableCache.length() != 0){

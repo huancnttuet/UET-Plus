@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +44,7 @@ import com.smarteist.autoimageslider.SliderView;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class DashboardFragment extends Base {
+public class DashboardFragment extends Base implements SwipeRefreshLayout.OnRefreshListener {
 
     SliderView sliderView;
     private SliderAdapterExample adapter;
@@ -120,15 +121,15 @@ public class DashboardFragment extends Base {
             transaction.commit();
         });
 
-//        final SwipeRefreshLayout pullToRefresh = getActivity().findViewById(R.id.pullToRefresh);
-//        pullToRefresh.setColorSchemeResources(R.color.calendar_today,R.color.colorPrimary,R.color.colorLightRed);
-//        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                refreshData();
-//                pullToRefresh.setRefreshing(false);
-//            }
-//        });
+        final SwipeRefreshLayout pullToRefresh = root.findViewById(R.id.pullToRefresh);
+        pullToRefresh.setColorSchemeResources(R.color.calendar_today,R.color.colorPrimary,R.color.colorLightRed);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+                pullToRefresh.setRefreshing(false);
+            }
+        });
 
         String studentNewsCache = SaveSharedPreference.getCache(getActivity(),"studentNews");
         String hotNewsCache = SaveSharedPreference.getCache(getActivity(),"hotNews");
@@ -247,4 +248,9 @@ public class DashboardFragment extends Base {
         }
     }
 
+    @Override
+    public void onRefresh() {
+        Toast.makeText(getContext(), "Refresh", Toast.LENGTH_SHORT).show();
+        refreshData();
+    }
 }

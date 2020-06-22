@@ -1,6 +1,7 @@
 package com.example.uethub.ui.components.examtime;
 
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -23,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 import com.example.uethub.MainActivity;
@@ -61,6 +63,8 @@ public class ExamTimeFragment extends Fragment {
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Lịch thi");
         final View root = inflater.inflate(R.layout.fragment_exam_time, container, false);
 
+
+
         RadioButton list_view_rb = (RadioButton) root.findViewById(R.id.list_view);
         list_view_rb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,26 +98,24 @@ public class ExamTimeFragment extends Fragment {
             showCalendarExamTime(ExamTimeAllList, root);
         } else{
             String mssv = SaveSharedPreference.getUserName(getActivity());
-            new GetExamtimeByMssv(getContext(), new GetExamtimeByMssv.AsyncResponse() {
-                @Override
-                public void processFinish(List<ExamTimeModel> output) {
-                    if(output == null || output.size() == 0){
-                        openSortDialog(root, R.layout.dialog_error);
-                        return;
-                    } else {
-                        ExamTimeAllList = output;
-                        showListExamTime(output, root);
-                        showCalendarExamTime(output, root);
-                        Gson gson = new Gson();
-                        String value = gson.toJson(output);
-                        SaveSharedPreference.setCache(getActivity(),"examtime",value);
-                    }
+            new GetExamtimeByMssv(getContext(), output -> {
+                if(output == null || output.size() == 0){
+                    openSortDialog(root, R.layout.dialog_error);
+                    return;
+                } else {
+                    ExamTimeAllList = output;
+                    showListExamTime(output, root);
+                    showCalendarExamTime(output, root);
+                    Gson gson = new Gson();
+                    String value = gson.toJson(output);
+                    SaveSharedPreference.setCache(getActivity(),"examtime",value);
                 }
             }).execute(mssv);
         }
 
         GridLayout calendarGrid = root.findViewById(R.id.calendar);
         calendarGrid.setOnTouchListener(new OnSwipeTouchListener(getActivity()){
+            @SuppressLint("ClickableViewAccessibility")
             public void onSwipeTop() {
                 Toast.makeText(getActivity(), "top", Toast.LENGTH_SHORT).show();
             }
@@ -210,7 +212,7 @@ public class ExamTimeFragment extends Fragment {
         SBD.setText("SBD : " + subject.sbd);
         type_exam.setText("Hình thức thi : " + subject.note);
         exam_time.setText("Thời gian thi : " + subject.time +" " + subject.day);
-        classroom.setText("Địa điểm: " + subject.place);
+        classroom.setText("Địa điểm: " + subject.room);
         dialog.show();
         Button exit_btn = dialog.findViewById(R.id.exit_btn);
         exit_btn.setOnClickListener(new View.OnClickListener() {

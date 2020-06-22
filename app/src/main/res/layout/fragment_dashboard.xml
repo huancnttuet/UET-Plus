@@ -9,289 +9,296 @@
     android:background="@drawable/bg"
     android:id="@+id/fragment_dashboard"
     >
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="30dp"
-
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:clickable="true"
-                    android:id="@+id/hello_world"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Xin chào, Phan Lương Huân"
-                    android:textSize="15dp"
-                    android:textColor="@color/white"
-                    />
-                <TextView
-                    android:layout_marginTop="29dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="29dp"
-                    android:textColor="@color/white"
-                    android:text="Sự kiện nổi bật" />
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="6dp"
-                    android:layout_margin="20dp"
-                    >
-                    <com.smarteist.autoimageslider.SliderView
-                        android:id="@+id/imageSlider"
-                        android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        app:sliderAnimationDuration="600"
-                        app:sliderAutoCycleDirection="back_and_forth"
-                        app:sliderAutoCycleEnabled="true"
-                        app:sliderIndicatorAnimationDuration="600"
-                        app:sliderIndicatorGravity="center_horizontal|bottom"
-                        app:sliderIndicatorMargin="15dp"
-                        app:sliderIndicatorOrientation="horizontal"
-                        app:sliderIndicatorPadding="3dp"
-                        app:sliderIndicatorRadius="2dp"
-                        app:sliderIndicatorSelectedColor="#5A5A5A"
-                        app:sliderIndicatorUnselectedColor="#FFF"
-                        app:sliderScrollTimeInSec="1"
-                        app:sliderStartAutoCycle="true" />
-
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
-
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/pullToRefresh"
+        >
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="@android:color/white"
                 >
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="16dp"
-                    android:layout_margin="20dp"
-                    >
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <LinearLayout
-                                android:id="@+id/schedule_btn"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/backgroud_button"
-                                android:layout_margin="10dp"
-                                android:orientation="vertical">
-                                <androidx.cardview.widget.CardView
-                                    android:id="@+id/timetable"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="10dp"
-                                    app:cardCornerRadius="20dp"
-                                    android:layout_centerHorizontal="true"
-                                    android:innerRadius="0dp"
-                                    android:shape="ring"
-                                    android:thicknessRatio="1.9"
-                                    >
-
-                                    <ImageView
-                                        android:layout_width="69dp"
-                                        android:layout_height="69dp"
-                                        android:src="@drawable/timetable" />
-                                </androidx.cardview.widget.CardView>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Thời khóa biểu"
-                                    />
-                            </LinearLayout>
-                            <LinearLayout
-                                android:id="@+id/examtime_btn"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_margin="10dp"
-                                android:background="@drawable/backgroud_button"
-                                android:gravity="center"
-                                android:orientation="vertical">
-                                <androidx.cardview.widget.CardView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="10dp"
-                                    app:cardCornerRadius="20dp"
-                                    android:layout_centerHorizontal="true"
-                                    android:innerRadius="0dp"
-                                    android:shape="ring"
-                                    android:thicknessRatio="1.9"
-                                    >
-                                    <ImageView
-                                        android:layout_width="69dp"
-                                        android:layout_height="69dp"
-                                        android:src="@drawable/exam"
-                                        />
-                                </androidx.cardview.widget.CardView>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Lịch thi"
-                                    />
-                            </LinearLayout>
-                            <LinearLayout
-                                android:id="@+id/grades_btn"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="10dp"
-                                android:background="@drawable/backgroud_button"
-                                android:gravity="center"
-                                android:layout_gravity="center"
-                                android:orientation="vertical">
-                                <androidx.cardview.widget.CardView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="10dp"
-                                    app:cardCornerRadius="20dp"
-                                    android:layout_centerHorizontal="true"
-                                    android:innerRadius="0dp"
-                                    android:shape="ring"
-                                    android:thicknessRatio="1.9"
-                                    >
-                                    <ImageView
-                                        android:layout_width="69dp"
-                                        android:layout_height="69dp"
-                                        android:src="@drawable/grade"
-                                        />
-                                </androidx.cardview.widget.CardView>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Điểm thi"
-                                    />
-                            </LinearLayout>
-                        </LinearLayout>
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="30dp"
+
+                    android:orientation="vertical"
+                    >
                     <TextView
+                        android:clickable="true"
+                        android:id="@+id/hello_world"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tin sinh viên"
-                        android:textSize="24dp"
-                        android:layout_margin="15dp" />
+                        android:text="Xin chào, Phan Lương Huân"
+                        android:textSize="15dp"
+                        android:textColor="@color/white"
+                        />
                     <TextView
-                        android:id="@+id/news_all_btn"
+                        android:layout_marginTop="29dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Tất cả"
-                        android:textSize="19dp"
-                        android:textColor="#0C81E8"
-                        android:gravity="right"
-                        android:layout_margin="15dp"
-                        android:clickable="true"
+                        android:gravity="center"
+                        android:textSize="29dp"
+                        android:textColor="@color/white"
+                        android:text="Sự kiện nổi bật" />
 
-                        />
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="6dp"
+                        android:layout_margin="20dp"
+                        >
+                        <com.smarteist.autoimageslider.SliderView
+                            android:id="@+id/imageSlider"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            app:sliderAnimationDuration="600"
+                            app:sliderAutoCycleDirection="back_and_forth"
+                            app:sliderAutoCycleEnabled="true"
+                            app:sliderIndicatorAnimationDuration="600"
+                            app:sliderIndicatorGravity="center_horizontal|bottom"
+                            app:sliderIndicatorMargin="15dp"
+                            app:sliderIndicatorOrientation="horizontal"
+                            app:sliderIndicatorPadding="3dp"
+                            app:sliderIndicatorRadius="2dp"
+                            app:sliderIndicatorSelectedColor="#5A5A5A"
+                            app:sliderIndicatorUnselectedColor="#FFF"
+                            app:sliderScrollTimeInSec="1"
+                            app:sliderStartAutoCycle="true" />
+
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
 
-
-                <HorizontalScrollView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_marginBottom="100dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@android:color/white"
                     >
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="16dp"
+                        android:layout_margin="20dp"
+                        >
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <LinearLayout
+                                    android:id="@+id/schedule_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/backgroud_button"
+                                    android:layout_margin="10dp"
+                                    android:orientation="vertical">
+                                    <androidx.cardview.widget.CardView
+                                        android:id="@+id/timetable"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="10dp"
+                                        app:cardCornerRadius="20dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:innerRadius="0dp"
+                                        android:shape="ring"
+                                        android:thicknessRatio="1.9"
+                                        >
+
+                                        <ImageView
+                                            android:layout_width="69dp"
+                                            android:layout_height="69dp"
+                                            android:src="@drawable/timetable" />
+                                    </androidx.cardview.widget.CardView>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Thời khóa biểu"
+                                        />
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:id="@+id/examtime_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="10dp"
+                                    android:background="@drawable/backgroud_button"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="10dp"
+                                        app:cardCornerRadius="20dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:innerRadius="0dp"
+                                        android:shape="ring"
+                                        android:thicknessRatio="1.9"
+                                        >
+                                        <ImageView
+                                            android:layout_width="69dp"
+                                            android:layout_height="69dp"
+                                            android:src="@drawable/exam"
+                                            />
+                                    </androidx.cardview.widget.CardView>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Lịch thi"
+                                        />
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:id="@+id/grades_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:background="@drawable/backgroud_button"
+                                    android:gravity="center"
+                                    android:layout_gravity="center"
+                                    android:orientation="vertical">
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="10dp"
+                                        app:cardCornerRadius="20dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:innerRadius="0dp"
+                                        android:shape="ring"
+                                        android:thicknessRatio="1.9"
+                                        >
+                                        <ImageView
+                                            android:layout_width="69dp"
+                                            android:layout_height="69dp"
+                                            android:src="@drawable/grade"
+                                            />
+                                    </androidx.cardview.widget.CardView>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Điểm thi"
+                                        />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:id="@+id/student_news"
-                        >
-                        <!--                    <androidx.cardview.widget.CardView-->
-                        <!--                        android:layout_width="300dp"-->
-                        <!--                        android:layout_height="300dp"-->
-                        <!--                        app:cardCornerRadius="12dp"-->
-                        <!--                        android:layout_margin="16dp"-->
-                        <!--                        >-->
-                        <!--                        <LinearLayout-->
-                        <!--                            android:layout_width="wrap_content"-->
-                        <!--                            android:layout_height="wrap_content"-->
-                        <!--                            android:orientation="vertical">-->
-                        <!--                            <ImageView-->
-                        <!--                                android:layout_width="wrap_content"-->
-                        <!--                                android:layout_height="200dp"-->
-                        <!--                                android:src="@drawable/puma_offer"-->
-                        <!--                            >-->
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tin sinh viên"
+                            android:textSize="24dp"
+                            android:layout_margin="15dp" />
+                        <TextView
+                            android:id="@+id/news_all_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tất cả"
+                            android:textSize="19dp"
+                            android:textColor="#0C81E8"
+                            android:gravity="right"
+                            android:layout_margin="15dp"
+                            android:clickable="true"
 
-                        <!--                            </ImageView>-->
-                        <!--                            <TextView-->
-                        <!--                                android:layout_width="wrap_content"-->
-                        <!--                                android:layout_height="wrap_content"-->
-                        <!--                                android:text="Thông tin về học bổng năm học mới "-->
-                        <!--                                android:textSize="19dp"-->
-                        <!--                                />-->
-
-                        <!--                        </LinearLayout>-->
-
-                        <!--                    </androidx.cardview.widget.CardView>-->
-                        <!--                    <androidx.cardview.widget.CardView-->
-                        <!--                        android:layout_width="300dp"-->
-                        <!--                        android:layout_height="300dp"-->
-                        <!--                        app:cardCornerRadius="12dp"-->
-                        <!--                        android:layout_margin="16dp"-->
-
-                        <!--                        >-->
-                        <!--                        <LinearLayout-->
-                        <!--                            android:layout_width="wrap_content"-->
-                        <!--                            android:layout_height="wrap_content"-->
-                        <!--                            android:orientation="vertical">-->
-                        <!--                            <ImageView-->
-                        <!--                                android:layout_width="wrap_content"-->
-                        <!--                                android:layout_height="200dp"-->
-                        <!--                                android:src="@drawable/puma_offer"-->
-                        <!--                                android:layout_gravity="top"-->
-                        <!--                                >-->
-
-                        <!--                            </ImageView>-->
-                        <!--                            <TextView-->
-                        <!--                                android:layout_width="wrap_content"-->
-                        <!--                                android:layout_height="wrap_content"-->
-                        <!--                                android:text="Thông tin về học bổng năm học mới "-->
-                        <!--                                android:textSize="19dp"-->
-                        <!--                                />-->
-
-                        <!--                        </LinearLayout>-->
-
-
-                        <!--                    </androidx.cardview.widget.CardView>-->
+                            />
                     </LinearLayout>
-                </HorizontalScrollView>
+
+
+                    <HorizontalScrollView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginBottom="100dp"
+                        >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:id="@+id/student_news"
+                            >
+                            <!--                    <androidx.cardview.widget.CardView-->
+                            <!--                        android:layout_width="300dp"-->
+                            <!--                        android:layout_height="300dp"-->
+                            <!--                        app:cardCornerRadius="12dp"-->
+                            <!--                        android:layout_margin="16dp"-->
+                            <!--                        >-->
+                            <!--                        <LinearLayout-->
+                            <!--                            android:layout_width="wrap_content"-->
+                            <!--                            android:layout_height="wrap_content"-->
+                            <!--                            android:orientation="vertical">-->
+                            <!--                            <ImageView-->
+                            <!--                                android:layout_width="wrap_content"-->
+                            <!--                                android:layout_height="200dp"-->
+                            <!--                                android:src="@drawable/puma_offer"-->
+                            <!--                            >-->
+
+                            <!--                            </ImageView>-->
+                            <!--                            <TextView-->
+                            <!--                                android:layout_width="wrap_content"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:text="Thông tin về học bổng năm học mới "-->
+                            <!--                                android:textSize="19dp"-->
+                            <!--                                />-->
+
+                            <!--                        </LinearLayout>-->
+
+                            <!--                    </androidx.cardview.widget.CardView>-->
+                            <!--                    <androidx.cardview.widget.CardView-->
+                            <!--                        android:layout_width="300dp"-->
+                            <!--                        android:layout_height="300dp"-->
+                            <!--                        app:cardCornerRadius="12dp"-->
+                            <!--                        android:layout_margin="16dp"-->
+
+                            <!--                        >-->
+                            <!--                        <LinearLayout-->
+                            <!--                            android:layout_width="wrap_content"-->
+                            <!--                            android:layout_height="wrap_content"-->
+                            <!--                            android:orientation="vertical">-->
+                            <!--                            <ImageView-->
+                            <!--                                android:layout_width="wrap_content"-->
+                            <!--                                android:layout_height="200dp"-->
+                            <!--                                android:src="@drawable/puma_offer"-->
+                            <!--                                android:layout_gravity="top"-->
+                            <!--                                >-->
+
+                            <!--                            </ImageView>-->
+                            <!--                            <TextView-->
+                            <!--                                android:layout_width="wrap_content"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:text="Thông tin về học bổng năm học mới "-->
+                            <!--                                android:textSize="19dp"-->
+                            <!--                                />-->
+
+                            <!--                        </LinearLayout>-->
+
+
+                            <!--                    </androidx.cardview.widget.CardView>-->
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    </androidx.core.widget.NestedScrollView>
 
 
 

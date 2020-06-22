@@ -6,9 +6,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="15dp"
+        app:cardCornerRadius="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+        android:id="@+id/notification_item"
         >
         <LinearLayout
             android:layout_width="match_parent"
